@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master Full Stack Development | EdTech Pro</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            blue: 'rgba(21, 95, 255, 1)',
+                            navy: 'rgba(12, 55, 97, 1)',
+                            black: '#050505',
+                            dark: '#0A0A0A',
+                            surface: '#121212',
+                        }
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                        'marquee-reverse': 'marqueeReverse 25s linear infinite',
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-100%)' },
+                        },
+                        marqueeReverse: {
+                            '0%': { transform: 'translateX(-100%)' },
+                            '100%': { transform: 'translateX(0%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for nuances hard to achieve with utility classes alone */
+        body {
+            background-color: #050505;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+        
+        /* Glassmorphism */
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-panel-high {
+            background: rgba(12, 55, 97, 0.4);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(21, 95, 255, 0.3);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1e293b; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(21, 95, 255, 1); 
+        }
+
+        /* Hide scrollbar for horizontal scroll areas but keep functionality */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Gradient Text */
+        .text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, rgba(21, 95, 255, 1) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .text-gradient-blue {
+            background: linear-gradient(90deg, rgba(21, 95, 255, 1) 0%, #60a5fa 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Form Input Auto-fill fix for dark mode */
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover, 
+        input:-webkit-autofill:focus, 
+        input:-webkit-autofill:active{
+            -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
+            -webkit-text-fill-color: white !important;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-blue selection:text-white">
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/10 top-0">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center">
+                        <i data-lucide="code-2" class="text-white w-5 h-5"></i>
+                    </div>
+                    <span class="font-bold text-xl tracking-tight">Dev<span class="text-brand-blue">Mastery</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex items-center space-x-8">
+                        <a href="#curriculum" class="text-sm text-gray-300 hover:text-white transition-colors">Curriculum</a>
+                        <a href="#instructors" class="text-sm text-gray-300 hover:text-white transition-colors">Mentors</a>
+                        <a href="#pricing" class="text-sm text-gray-300 hover:text-white transition-colors">Pricing</a>
+                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="bg-brand-blue hover:bg-blue-600 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(21,95,255,0.4)]">
+                            Apply Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-navy opacity-20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/4"></div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-full bg-brand-blue opacity-10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Hero Content -->
+                <div class="lg:col-span-7 space-y-8">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy/30 border border-brand-blue/30 text-brand-blue text-xs font-semibold tracking-wide uppercase">
+                        <span class="relative flex h-2 w-2">
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
+                        </span>
+                        New Batch Starts Oct 15th
+                    </div>
+                    
+                    <h1 class="text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
+                        Become a <br>
+                        <span class="text-gradient-blue">Full Stack Architect</span>
+                    </h1>
+                    
+                    <p class="text-lg text-gray-400 max-w-xl">
+                        Master the MERN stack, System Design, and Cloud Architecture. Build 12+ real-world projects and get placed in top product companies.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5"></i>
+                                <span>100% Placement Assistance</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5"></i>
+                                <span>1:1 Mentorship from FAANG Engineers</span>
+                            </li>
+                        </ul>
+                        <ul class="space-y-3">
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5"></i>
+                                <span>Live Interactive Classes</span>
+                            </li>
+                            <li class="flex items-center gap-3 text-gray-300">
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5"></i>
+                                <span>IBM & Microsoft Certification</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="px-8 py-4 bg-brand-blue text-white rounded-lg font-bold text-lg hover:bg-blue-600 transition-all shadow-[0_4px_20px_rgba(21,95,255,0.4)] flex items-center gap-2">
+                            Download Brochure <i data-lucide="download" class="w-5 h-5"></i>
+                        </button>
+                        <button class="px-8 py-4 bg-transparent border border-gray-700 text-white rounded-lg font-bold text-lg hover:border-brand-blue hover:text-brand-blue transition-all flex items-center gap-2">
+                            View Syllabus <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+
+                    <div class="pt-6 border-t border-gray-800">
+                        <p class="text-sm text-gray-500 mb-3">Mentors from:</p>
+                        <div class="flex gap-6 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" alt="Google" class="h-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/4/44/Microsoft_logo.svg" alt="Microsoft" class="h-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" alt="Amazon" class="h-6">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/0/08/Netflix_2015_logo.svg" alt="Netflix" class="h-6">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Application Form -->
+                <div class="lg:col-span-5 relative" id="hero-form">
+                    <div class="absolute inset-0 bg-brand-blue blur-[60px] opacity-20"></div>
+                    <div class="glass-panel-high p-8 rounded-2xl relative z-10">
+                        <div class="text-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Book Free Career Counselling</h3>
+                            <p class="text-gray-400 text-sm mt-1">Limited seats for the upcoming batch.</p>
+                        </div>
+                        <form class="space-y-4" onsubmit="event.preventDefault(); alert('Application Submitted!');">
+                            <div>
+                                <label class="block text-xs font-medium text-gray-400 mb-1">Full Name</label>
+                                <input type="text" placeholder="John Doe" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
+                                <input type="email" placeholder="john@example.com" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                            </div>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-400 mb-1">Phone</label>
+                                    <input type="tel" placeholder="+91 98765..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-medium text-gray-400 mb-1">Work Exp.</label>
+                                    <select class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors appearance-none">
+                                        <option>Student</option>
+                                        <option>0-1 Years</option>
+                                        <option>1-3 Years</option>
+                                        <option>3+ Years</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-medium text-gray-400 mb-1">LinkedIn Profile</label>
+                                <input type="url" placeholder="linkedin.com/in/..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                            </div>
+                            <button type="submit" class="w-full bg-brand-blue hover:bg-blue-600 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg">
+                                Reserve My Spot
+                            </button>
+                            <p class="text-xs text-center text-gray-500">By clicking, you agree to our Terms & Conditions</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ratings & Trust -->
+    <section class="border-y border-white/5 bg-brand-surface py-8">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="flex gap-8 items-center">
+                <div class="text-center md:text-left">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-1">
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                    </div>
+                    <p class="text-sm text-gray-400"><span class="text-white font-bold">4.8/5</span> on CourseReport</p>
+                </div>
+                <div class="h-10 w-px bg-gray-800 hidden md:block"></div>
+                 <div class="text-center md:text-left">
+                    <div class="flex items-center gap-1 text-yellow-400 mb-1">
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
+                        <i data-lucide="star-half" class="fill-current w-5 h-5"></i>
+                    </div>
+                    <p class="text-sm text-gray-400"><span class="text-white font-bold">4.7/5</span> on SwitchUp</p>
+                </div>
+            </div>
+            
+            <!-- Timeline Component -->
+            <div class="flex items-center gap-4 bg-brand-navy/20 px-6 py-3 rounded-full border border-brand-blue/20">
+                <span class="text-brand-blue font-bold text-sm uppercase tracking-wider">Timeline</span>
+                <div class="flex items-center gap-2 text-sm text-gray-300">
+                    <span>Apply</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
+                    <span>Screening</span>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
+                    <span class="text-white font-semibold">Start Oct 15</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Companies Marquee -->
+    <section class="py-10 overflow-hidden bg-black">
+        <p class="text-center text-gray-500 text-sm uppercase tracking-widest mb-6">Our Alumni Work At</p>
+        <div class="relative w-full flex overflow-x-hidden group">
+            <div class="animate-marquee whitespace-nowrap flex gap-16 items-center">
+                <!-- Logos (duplicated for infinite loop) -->
+                <span class="text-2xl font-bold text-gray-600">UBER</span>
+                <span class="text-2xl font-bold text-gray-600">ZOMATO</span>
+                <span class="text-2xl font-bold text-gray-600">CRED</span>
+                <span class="text-2xl font-bold text-gray-600">AMAZON</span>
+                <span class="text-2xl font-bold text-gray-600">PAYTM</span>
+                <span class="text-2xl font-bold text-gray-600">FLIPKART</span>
+                <span class="text-2xl font-bold text-gray-600">MICROSOFT</span>
+                <span class="text-2xl font-bold text-gray-600">ATLASSIAN</span>
+                <span class="text-2xl font-bold text-gray-600">UBER</span>
+                <span class="text-2xl font-bold text-gray-600">ZOMATO</span>
+                <span class="text-2xl font-bold text-gray-600">CRED</span>
+                <span class="text-2xl font-bold text-gray-600">AMAZON</span>
+                <span class="text-2xl font-bold text-gray-600">PAYTM</span>
+                <span class="text-2xl font-bold text-gray-600">FLIPKART</span>
+                <span class="text-2xl font-bold text-gray-600">MICROSOFT</span>
+                <span class="text-2xl font-bold text-gray-600">ATLASSIAN</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Career Stats (USP) -->
+    <section class="py-20 bg-brand-navy/10 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl lg:text-4xl font-bold mb-4">Numbers that speak for themselves</h2>
+                <p class="text-gray-400">Our career assistance program is designed to launch you into the top 1%.</p>
+            </div>
+            
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="glass-panel p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                    <h3 class="text-4xl font-bold text-white mb-2">1200+</h3>
+                    <p class="text-gray-400 text-sm uppercase tracking-wide">Placements</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                    <h3 class="text-4xl font-bold text-brand-blue mb-2">156%</h3>
+                    <p class="text-gray-400 text-sm uppercase tracking-wide">Avg. Hike</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                    <h3 class="text-4xl font-bold text-white mb-2">42 LPA</h3>
+                    <p class="text-gray-400 text-sm uppercase tracking-wide">Highest CTC</p>
+                </div>
+                <div class="glass-panel p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                    <h3 class="text-4xl font-bold text-brand-blue mb-2">350+</h3>
+                    <p class="text-gray-400 text-sm uppercase tracking-wide">Hiring Partners</p>
+                </div>
+            </div>
+
+            <!-- USP Points -->
+            <div class="mt-16 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+                <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center shrink-0">
+                        <i data-lucide="briefcase" class="text-brand-blue"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Dedicated Placement Cell</h4>
+                        <p class="text-sm text-gray-400 mt-1">A team of 15+ HR experts working solely on bringing opportunities to your inbox.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center shrink-0">
+                        <i data-lucide="file-text" class="text-brand-blue"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white">AI-Powered Resume Builder</h4>
+                        <p class="text-sm text-gray-400 mt-1">Get your resume optimized for ATS systems used by top MNCs.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center shrink-0">
+                        <i data-lucide="users" class="text-brand-blue"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Unlimited Mock Interviews</h4>
+                        <p class="text-sm text-gray-400 mt-1">Practice with actual engineering managers until you are interview-ready.</p>
+                    </div>
+                </div>
+                 <div class="flex items-start gap-4">
+                    <div class="w-10 h-10 rounded-full bg-brand-blue/20 flex items-center justify-center shrink-0">
+                        <i data-lucide="shield-check" class="text-brand-blue"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-lg font-bold text-white">Salary Negotiation Support</h4>
+                        <p class="text-sm text-gray-400 mt-1">We don't just get you the job; we help you get the best compensation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Placements (Scrolling Cards) -->
+    <section class="py-20 bg-black overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 mb-10 flex justify-between items-end">
+            <div>
+                <h2 class="text-3xl font-bold mb-2">Success Stories</h2>
+                <p class="text-gray-400">Meet the graduates who transformed their careers.</p>
+            </div>
+            <div class="flex gap-2">
+                <button id="scrollLeft" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-left"></i></button>
+                <button id="scrollRight" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-right"></i></button>
+            </div>
+        </div>
+
+        <div id="placement-scroll" class="flex gap-6 overflow-x-auto no-scrollbar px-4 lg:px-20 pb-10 snap-x">
+            <!-- Card 1 -->
+            <div class="min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                        <img src="https://i.pravatar.cc/150?img=11" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Arjun K.</h4>
+                        <p class="text-xs text-brand-blue">SDE-II @ Microsoft</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
+                    <div class="text-center opacity-50">
+                        <span class="text-xs block">Infosys</span>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <div class="text-center">
+                        <span class="font-bold text-white block">Microsoft</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 200% Hike</span>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                        <img src="https://i.pravatar.cc/150?img=5" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Sarah M.</h4>
+                        <p class="text-xs text-brand-blue">Frontend Lead @ Cred</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
+                    <div class="text-center opacity-50">
+                        <span class="text-xs block">Wipro</span>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <div class="text-center">
+                        <span class="font-bold text-white block">Cred</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 140% Hike</span>
+                </div>
+            </div>
+
+             <!-- Card 3 -->
+             <div class="min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                        <img src="https://i.pravatar.cc/150?img=3" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Rahul V.</h4>
+                        <p class="text-xs text-brand-blue">Backend Eng. @ Swiggy</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
+                    <div class="text-center opacity-50">
+                        <span class="text-xs block">TCS</span>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <div class="text-center">
+                        <span class="font-bold text-white block">Swiggy</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 180% Hike</span>
+                </div>
+            </div>
+             <!-- Card 4 -->
+             <div class="min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+                <div class="flex items-center gap-4 mb-4">
+                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
+                        <img src="https://i.pravatar.cc/150?img=32" alt="Student" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-white">Priya D.</h4>
+                        <p class="text-xs text-brand-blue">SDE-I @ Amazon</p>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
+                    <div class="text-center opacity-50">
+                        <span class="text-xs block">Fresher</span>
+                    </div>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <div class="text-center">
+                        <span class="font-bold text-white block">Amazon</span>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">24 LPA Package</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Mentors Section -->
+    <section id="instructors" class="py-20 bg-brand-surface relative overflow-hidden">
+        <!-- Decoration -->
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 rounded-full blur-3xl"></div>
+
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">Learn from the <span class="text-brand-blue">Best Minds</span></h2>
+            
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Mentor 1 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
+                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0">
+                        <img src="https://i.pravatar.cc/150?img=60" alt="Mentor" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold text-white">David Chen</h3>
+                        <p class="text-brand-blue font-medium mb-2">Senior Staff Engineer @ Google</p>
+                        <p class="text-gray-400 text-sm mb-4">12+ years of experience in System Design and Scalable Architectures. Previously at Netflix & Meta.</p>
+                        <div class="flex justify-center sm:justify-start gap-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2f/Google_2015_logo.svg" class="h-6 opacity-70" alt="Company">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mentor 2 -->
+                <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
+                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0">
+                        <img src="https://i.pravatar.cc/150?img=44" alt="Mentor" class="w-full h-full rounded-full object-cover">
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-xl font-bold text-white">Ananya Gupta</h3>
+                        <p class="text-brand-blue font-medium mb-2">Tech Lead @ Amazon</p>
+                        <p class="text-gray-400 text-sm mb-4">Expert in Cloud Computing and Microservices. Built payment gateways serving millions of users.</p>
+                        <div class="flex justify-center sm:justify-start gap-3">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/a/a9/Amazon_logo.svg" class="h-6 opacity-70" alt="Company">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Course Benefits (Bento Grid) -->
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Why choose this program?</h2>
+            
+            <div class="grid md:grid-cols-3 gap-6 auto-rows-[200px]">
+                <!-- Large Card -->
+                <div class="md:col-span-2 row-span-2 glass-panel p-8 rounded-2xl relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-navy/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="relative z-10 h-full flex flex-col justify-end">
+                        <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center mb-4">
+                            <i data-lucide="code" class="text-white"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Real-World Projects</h3>
+                        <p class="text-gray-400">Don't just watch tutorials. Build clone apps of Netflix, Uber, and Trello using Microservices architecture. Deploy them on AWS/Azure.</p>
+                    </div>
+                </div>
+
+                <!-- Small Card -->
+                <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors">
+                    <i data-lucide="award" class="text-brand-blue w-8 h-8 mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Industry Certification</h3>
+                    <p class="text-gray-400 text-sm">Recognized by top tech firms globally.</p>
+                </div>
+
+                 <!-- Small Card -->
+                 <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors">
+                    <i data-lucide="users" class="text-brand-blue w-8 h-8 mb-4"></i>
+                    <h3 class="text-lg font-bold text-white mb-2">Peer Learning</h3>
+                    <p class="text-gray-400 text-sm">Collaborate with ambitious peers in teams.</p>
+                </div>
+
+                <!-- Medium Card -->
+                <div class="md:col-span-1 row-span-2 glass-panel p-6 rounded-2xl flex flex-col justify-end group hover:bg-brand-navy/20 transition-colors">
+                    <i data-lucide="monitor-play" class="text-brand-blue w-10 h-10 mb-6"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">Lifetime Access</h3>
+                    <p class="text-gray-400">Get access to all recording and updated course material forever. Revisit concepts whenever you need.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Accordion -->
+    <section id="curriculum" class="py-20 bg-brand-surface">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm">30 Weeks Program</span>
+                <h2 class="text-3xl font-bold mt-2">Comprehensive Curriculum</h2>
+            </div>
+
+            <div class="space-y-4">
+                <!-- Module 1 -->
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 1</span>
+                            <span class="font-bold text-lg text-white">Foundations & DSA</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
+                        <div class="px-6 pb-6 pt-2">
+                            <ul class="space-y-2 text-gray-400 ml-14">
+                                <li class="list-disc">Time & Space Complexity</li>
+                                <li class="list-disc">Arrays, Linked Lists, Stacks, Queues</li>
+                                <li class="list-disc">Trees, Graphs, DP & Greedy Algorithms</li>
+                                <li class="list-disc">Advanced Recursion techniques</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Module 2 -->
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 2</span>
+                            <span class="font-bold text-lg text-white">Frontend Engineering (React)</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
+                        <div class="px-6 pb-6 pt-2">
+                            <ul class="space-y-2 text-gray-400 ml-14">
+                                <li class="list-disc">Advanced JS (Closures, Event Loop, Promises)</li>
+                                <li class="list-disc">React Hooks, Context API, Redux Toolkit</li>
+                                <li class="list-disc">Tailwind CSS & Responsive Design</li>
+                                <li class="list-disc">Performance Optimization & Testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Module 3 -->
+                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 3</span>
+                            <span class="font-bold text-lg text-white">Backend System Design</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
+                        <div class="px-6 pb-6 pt-2">
+                            <ul class="space-y-2 text-gray-400 ml-14">
+                                <li class="list-disc">Node.js Internals & Express</li>
+                                <li class="list-disc">SQL vs NoSQL (PostgreSQL & MongoDB)</li>
+                                <li class="list-disc">Authentication (JWT, OAuth)</li>
+                                <li class="list-disc">Redis, Caching & Message Queues</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Module 4 -->
+                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                    <button class="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-gray-800 text-gray-400 px-3 py-1 rounded text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 4</span>
+                            <span class="font-bold text-lg text-white">Cloud & DevOps</span>
+                        </div>
+                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
+                    </button>
+                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
+                        <div class="px-6 pb-6 pt-2">
+                            <ul class="space-y-2 text-gray-400 ml-14">
+                                <li class="list-disc">Docker & Kubernetes</li>
+                                <li class="list-disc">CI/CD Pipelines (GitHub Actions)</li>
+                                <li class="list-disc">AWS Core Services (EC2, S3, Lambda)</li>
+                                <li class="list-disc">System Design Interviews</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Showcase -->
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-10 text-center">Build what matters</h2>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-48 bg-gray-800 relative">
+                        <!-- Placeholder visual -->
+                        <div class="absolute inset-0 flex items-center justify-center text-gray-600">
+                            <i data-lucide="video" class="w-12 h-12"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Demo</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Video Streaming Engine</h3>
+                        <p class="text-gray-400 text-sm mb-4">Build a scalable video transcoding service like Netflix using FFmpeg and AWS S3.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Node.js</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Docker</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">AWS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-48 bg-gray-800 relative">
+                         <!-- Placeholder visual -->
+                         <div class="absolute inset-0 flex items-center justify-center text-gray-600">
+                            <i data-lucide="shopping-cart" class="w-12 h-12"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Demo</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">High-Scale E-commerce</h3>
+                        <p class="text-gray-400 text-sm mb-4">Handle flash sales with millions of requests using Redis queues and horizontal scaling.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Microservices</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Kafka</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Postgres</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-panel rounded-xl overflow-hidden group">
+                    <div class="h-48 bg-gray-800 relative">
+                         <!-- Placeholder visual -->
+                         <div class="absolute inset-0 flex items-center justify-center text-gray-600">
+                            <i data-lucide="layout" class="w-12 h-12"></i>
+                        </div>
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Demo</span>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold text-white mb-2">Collaborative Task Board</h3>
+                        <p class="text-gray-400 text-sm mb-4">Real-time Trello clone with drag-and-drop, using WebSockets for instant updates.</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Socket.io</span>
+                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">MongoDB</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certificate Section -->
+    <section class="py-20 bg-gradient-to-b from-brand-surface to-black border-y border-white/5">
+        <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+                <h2 class="text-3xl font-bold mb-6">Certified Excellence</h2>
+                <ul class="space-y-6">
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="check" class="w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">Industry Recognized</h4>
+                            <p class="text-gray-400 text-sm">Valid across 500+ hiring partners globally.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="share-2" class="w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">Sharable on LinkedIn</h4>
+                            <p class="text-gray-400 text-sm">Digital credential ID for instant verification.</p>
+                        </div>
+                    </li>
+                    <li class="flex items-start gap-4">
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="award" class="w-5 h-5"></i></div>
+                        <div>
+                            <h4 class="font-bold text-lg">Project Portfolio Attached</h4>
+                            <p class="text-gray-400 text-sm">Your certificate links directly to your GitHub projects.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="relative">
+                <div class="absolute inset-0 bg-brand-blue blur-3xl opacity-20"></div>
+                <div class="relative glass-panel-high border-2 border-brand-blue/30 p-8 rounded-xl aspect-[4/3] flex flex-col justify-between">
+                    <div class="flex justify-between items-start">
+                        <div class="flex items-center gap-2">
+                            <div class="w-8 h-8 bg-brand-blue rounded"></div>
+                            <span class="font-bold text-xl tracking-tight">Dev<span class="text-brand-blue">Mastery</span></span>
+                        </div>
+                        <div class="text-right text-xs text-gray-400">
+                            CERT ID: DM-2023-884
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-sm text-gray-400 uppercase tracking-widest mb-2">This certifies that</p>
+                        <h3 class="text-3xl font-serif italic text-white mb-4">Your Name Here</h3>
+                        <p class="text-sm text-gray-300">Has successfully completed the</p>
+                        <h4 class="text-xl font-bold text-brand-blue">Full Stack Master Program</h4>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div class="text-xs text-gray-500">
+                            Date: Oct 24, 2023
+                        </div>
+                        <div class="w-20 h-10 border-b border-gray-600"></div> <!-- Signature line -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-brand-navy/20">
+        <div class="max-w-4xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-12 text-center">Invest in your future</h2>
+            
+            <div class="glass-panel border-t-4 border-t-brand-blue p-8 md:p-12 rounded-2xl relative">
+                <div class="absolute top-0 right-0 bg-brand-blue text-white text-xs font-bold px-4 py-1 rounded-bl-xl rounded-tr-xl">
+                    MOST POPULAR
+                </div>
+                
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-6">
+                    <div>
+                        <h3 class="text-2xl font-bold text-white">Full Stack Master Program</h3>
+                        <p class="text-gray-400">Live Classes + Mentorship + Placement Support</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-gray-500 line-through text-sm">₹ 1,20,000</p>
+                        <h3 class="text-4xl font-bold text-white">₹ 85,000 <span class="text-sm font-normal text-gray-400">+ GST</span></h3>
+                    </div>
+                </div>
+
+                <div class="bg-brand-blue/10 border border-brand-blue/30 rounded-lg p-4 mb-8 flex justify-between items-center">
+                    <div>
+                        <span class="font-bold text-white block">No Cost EMI Options</span>
+                        <span class="text-xs text-gray-400">Partners: HDFC, Bajaj Finserv, Zest</span>
+                    </div>
+                    <div>
+                        <span class="font-bold text-brand-blue text-xl">₹ 5,200</span>
+                        <span class="text-xs text-gray-400">/mo</span>
+                    </div>
+                </div>
+
+                <div class="grid md:grid-cols-2 gap-4 mb-8">
+                    <div class="flex gap-2 text-sm text-gray-300">
+                        <i data-lucide="check" class="text-green-500 w-5 h-5"></i> 7-Day Money Back Guarantee
+                    </div>
+                    <div class="flex gap-2 text-sm text-gray-300">
+                        <i data-lucide="check" class="text-green-500 w-5 h-5"></i> Lifetime LMS Access
+                    </div>
+                    <div class="flex gap-2 text-sm text-gray-300">
+                        <i data-lucide="check" class="text-green-500 w-5 h-5"></i> Dedicated Career Coach
+                    </div>
+                    <div class="flex gap-2 text-sm text-gray-300">
+                        <i data-lucide="check" class="text-green-500 w-5 h-5"></i> Mock Interviews Included
+                    </div>
+                </div>
+
+                <button class="w-full bg-brand-blue hover:bg-blue-600 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-all">
+                    Enroll Now
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="py-20 bg-black">
+        <div class="max-w-3xl mx-auto px-4">
+            <h2 class="text-3xl font-bold mb-10 text-center">Frequently Asked Questions</h2>
+            
+            <div class="space-y-4">
+                <details class="glass-panel rounded-lg group">
+                    <summary class="flex justify-between items-center p-6 font-medium cursor-pointer list-none">
+                        <span>Do I need prior coding experience?</span>
+                        <span class="transition group-open:rotate-180"><i data-lucide="chevron-down"></i></span>
+                    </summary>
+                    <div class="text-gray-400 px-6 pb-6">
+                        No! We start from the absolute basics of HTML/CSS and JavaScript before moving to advanced topics. However, logical thinking ability is required.
+                    </div>
+                </details>
+
+                <details class="glass-panel rounded-lg group">
+                    <summary class="flex justify-between items-center p-6 font-medium cursor-pointer list-none">
+                        <span>What if I miss a live class?</span>
+                        <span class="transition group-open:rotate-180"><i data-lucide="chevron-down"></i></span>
+                    </summary>
+                    <div class="text-gray-400 px-6 pb-6">
+                        All live sessions are recorded and uploaded to your dashboard within 4 hours. You can watch them anytime.
+                    </div>
+                </details>
+
+                <details class="glass-panel rounded-lg group">
+                    <summary class="flex justify-between items-center p-6 font-medium cursor-pointer list-none">
+                        <span>Is the placement guarantee real?</span>
+                        <span class="transition group-open:rotate-180"><i data-lucide="chevron-down"></i></span>
+                    </summary>
+                    <div class="text-gray-400 px-6 pb-6">
+                        Yes. If you complete all assignments, projects, and pass the mock interviews but still don't get placed within 6 months of course completion, we have a refund policy (Terms apply).
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-24 relative overflow-hidden text-center">
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-black"></div>
+        <div class="relative z-10 max-w-4xl mx-auto px-4">
+            <h2 class="text-4xl lg:text-5xl font-bold mb-6">Ready to transform your career?</h2>
+            <p class="text-xl text-gray-400 mb-10">Join 5000+ developers who changed their lives with DevMastery.</p>
+            <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="px-10 py-5 bg-white text-brand-navy font-bold text-xl rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+                Start Application Process
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#020202] border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center">
+                            <i data-lucide="code-2" class="text-white w-5 h-5"></i>
+                        </div>
+                        <span class="font-bold text-xl tracking-tight">Dev<span class="text-brand-blue">Mastery</span></span>
+                    </div>
+                    <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
+                        Premier upskilling platform for ambitious developers. We bridge the gap between college education and industry requirements.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-white mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-brand-blue transition">Curriculum</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition">Success Stories</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition">Hire from us</a></li>
+                        <li><a href="#" class="hover:text-brand-blue transition">About Us</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold text-white mb-4">Contact</h4>
+                    <ul class="space-y-2 text-sm text-gray-400">
+                        <li>hello@devmastery.com</li>
+                        <li>+91 99887 76655</li>
+                        <li>Bengaluru, India</li>
+                    </ul>
+                    <div class="flex gap-4 mt-4">
+                        <i data-lucide="twitter" class="w-5 h-5 text-gray-500 hover:text-white cursor-pointer"></i>
+                        <i data-lucide="linkedin" class="w-5 h-5 text-gray-500 hover:text-white cursor-pointer"></i>
+                        <i data-lucide="youtube" class="w-5 h-5 text-gray-500 hover:text-white cursor-pointer"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-900 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-xs text-gray-600">© 2023 DevMastery EdTech Pvt Ltd. All rights reserved.</p>
+                <div class="flex gap-6 text-xs text-gray-600">
+                    <a href="#" class="hover:text-gray-400">Privacy Policy</a>
+                    <a href="#" class="hover:text-gray-400">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Icons
+        lucide.createIcons();
+
+        // Horizontal Scroll for Placements
+        const scrollContainer = document.getElementById('placement-scroll');
+        const leftBtn = document.getElementById('scrollLeft');
+        const rightBtn = document.getElementById('scrollRight');
+
+        if (leftBtn && rightBtn && scrollContainer) {
+            rightBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: 320, behavior: 'smooth' });
+            });
+
+            leftBtn.addEventListener('click', () => {
+                scrollContainer.scrollBy({ left: -320, behavior: 'smooth' });
+            });
+        }
+
+        // Curriculum Accordion Logic
+        document.querySelectorAll('.module-toggle').forEach(button => {
+            button.addEventListener('click', () => {
+                const content = button.nextElementSibling;
+                // Use class selector because Lucide replaces <i> with <svg>
+                const icon = button.querySelector('.transform');
+                
+                // Close other open accordions
+                document.querySelectorAll('.module-content').forEach(c => {
+                    if(c !== content) {
+                        c.style.maxHeight = null;
+                        // Robustly find the icon in sibling buttons
+                        const otherIcon = c.previousElementSibling.querySelector('.transform');
+                        if (otherIcon) {
+                             otherIcon.style.transform = 'rotate(0deg)';
+                        }
+                        c.parentElement.classList.remove('border-brand-blue');
+                        c.parentElement.classList.add('border-gray-800');
+                    }
+                });
+
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                    if(icon) icon.style.transform = 'rotate(0deg)';
+                    button.parentElement.classList.remove('border-brand-blue');
+                    button.parentElement.classList.add('border-gray-800');
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                    if(icon) icon.style.transform = 'rotate(180deg)';
+                    button.parentElement.classList.remove('border-gray-800');
+                    button.parentElement.classList.add('border-brand-blue');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
