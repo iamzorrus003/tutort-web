@@ -26,10 +26,9 @@
                     },
                     colors: {
                         brand: {
-                            // Updated to Vibrant Orange
-                            blue: 'rgba(233, 94, 40, 1)', 
-                            // Updated to Dark Auburn/Brown
-                            navy: 'rgba(122, 52, 24, 1)', 
+                            // Updated to use CSS variables for dynamic switching
+                            blue: 'rgba(var(--brand-primary), <alpha-value>)', 
+                            navy: 'rgba(var(--brand-secondary), <alpha-value>)', 
                             black: '#050505',
                             dark: '#0A0A0A',
                             surface: '#121212',
@@ -56,11 +55,25 @@
     </script>
 
     <style>
+        /* Define Theme Variables */
+        :root {
+            /* Default: Orange Theme */
+            --brand-primary: 233, 94, 40;
+            --brand-secondary: 122, 52, 24;
+        }
+
+        [data-theme="blue"] {
+            /* Blue Theme */
+            --brand-primary: 21, 95, 255;
+            --brand-secondary: 12, 55, 97;
+        }
+
         /* Custom Styles for nuances hard to achieve with utility classes alone */
         body {
             background-color: #050505;
             color: #ffffff;
             overflow-x: hidden;
+            transition: color 0.3s ease;
         }
         
         /* Glassmorphism */
@@ -72,11 +85,12 @@
         }
 
         .glass-panel-high {
-            /* Updated background to new secondary color opacity */
-            background: rgba(122, 52, 24, 0.4);
+            /* Updated background to use CSS var */
+            background: rgba(var(--brand-secondary), 0.4);
             backdrop-filter: blur(16px);
-            /* Updated border to new primary color opacity */
-            border: 1px solid rgba(233, 94, 40, 0.3);
+            /* Updated border to use CSS var */
+            border: 1px solid rgba(var(--brand-primary), 0.3);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
         /* Mobile Menu Animation */
@@ -104,8 +118,8 @@
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            /* Updated hover color to new primary */
-            background: rgba(233, 94, 40, 1); 
+            /* Updated hover color to use CSS var */
+            background: rgba(var(--brand-primary), 1); 
         }
 
         /* Hide scrollbar for horizontal scroll areas but keep functionality */
@@ -119,15 +133,15 @@
 
         /* Gradient Text */
         .text-gradient {
-            /* Updated end color to new primary */
-            background: linear-gradient(135deg, #ffffff 0%, rgba(233, 94, 40, 1) 100%);
+            /* Updated end color to use CSS var */
+            background: linear-gradient(135deg, #ffffff 0%, rgba(var(--brand-primary), 1) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
         
         .text-gradient-primary {
-            /* Updated to Orange gradient */
-            background: linear-gradient(90deg, rgba(233, 94, 40, 1) 0%, #fb923c 100%);
+            /* Updated to use CSS var */
+            background: linear-gradient(90deg, rgba(var(--brand-primary), 1) 0%, rgba(var(--brand-primary), 0.6) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -140,19 +154,24 @@
             -webkit-box-shadow: 0 0 0 30px #121212 inset !important;
             -webkit-text-fill-color: white !important;
         }
+        
+        /* Theme Button Transition */
+        .theme-transition {
+            transition: all 0.3s ease;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-blue selection:text-white">
 
     <!-- Navbar -->
-    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/10 top-0">
+    <nav class="fixed w-full z-50 glass-panel border-b-0 border-white/10 top-0 theme-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
                 <div class="flex items-center gap-2">
-                    <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center">
+                    <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center theme-transition">
                         <i data-lucide="code-2" class="text-white w-5 h-5"></i>
                     </div>
-                    <span class="font-bold text-xl tracking-tight">Tutort<span class="text-brand-blue">Academy</span></span>
+                    <span class="font-bold text-xl tracking-tight">Tutort<span class="text-brand-blue theme-transition">Academy</span></span>
                 </div>
                 
                 <!-- Desktop Menu -->
@@ -161,15 +180,23 @@
                         <a href="#curriculum" class="text-sm text-gray-300 hover:text-white transition-colors">Curriculum</a>
                         <a href="#instructors" class="text-sm text-gray-300 hover:text-white transition-colors">Mentors</a>
                         <a href="#pricing" class="text-sm text-gray-300 hover:text-white transition-colors">Pricing</a>
-                        <!-- Updated shadow color -->
-                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="bg-brand-blue hover:bg-orange-600 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(233,94,40,0.4)]">
+                        
+                        <!-- Theme Switcher Button -->
+                        <button id="theme-toggle" class="p-2 rounded-full bg-white/5 hover:bg-white/10 text-gray-300 hover:text-brand-blue transition-colors" title="Switch Theme">
+                            <i data-lucide="palette" class="w-5 h-5"></i>
+                        </button>
+
+                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="bg-brand-blue hover:brightness-110 text-white px-5 py-2 rounded-full text-sm font-semibold transition-all shadow-[0_0_15px_rgba(var(--brand-primary),0.4)] theme-transition">
                             Apply Now
                         </button>
                     </div>
                 </div>
 
-                <!-- Mobile Menu Button -->
-                <div class="md:hidden flex items-center">
+                <!-- Mobile Menu Button & Theme Toggle -->
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="theme-toggle-mobile" class="text-gray-300 hover:text-brand-blue focus:outline-none transition-colors">
+                        <i data-lucide="palette" class="w-5 h-5"></i>
+                    </button>
                     <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
                         <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
@@ -183,8 +210,7 @@
                 <a href="#curriculum" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Curriculum</a>
                 <a href="#instructors" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Mentors</a>
                 <a href="#pricing" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Pricing</a>
-                <!-- Updated shadow and hover color -->
-                <button onclick="toggleMobileMenu(); document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full bg-brand-blue hover:bg-orange-600 text-white px-5 py-3 rounded-lg text-base font-semibold transition-all shadow-[0_0_15px_rgba(233,94,40,0.4)]">
+                <button onclick="toggleMobileMenu(); document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full bg-brand-blue hover:brightness-110 text-white px-5 py-3 rounded-lg text-base font-semibold transition-all shadow-[0_0_15px_rgba(var(--brand-primary),0.4)] theme-transition">
                     Apply Now
                 </button>
             </div>
@@ -194,26 +220,25 @@
     <!-- Hero Section -->
     <section class="relative pt-24 pb-12 lg:pt-32 lg:pb-24 overflow-hidden">
         <!-- Background Elements -->
-        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-navy opacity-20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/4"></div>
-        <div class="absolute bottom-0 left-0 w-1/2 h-full bg-brand-blue opacity-10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4"></div>
+        <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-navy opacity-20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/4 theme-transition"></div>
+        <div class="absolute bottom-0 left-0 w-1/2 h-full bg-brand-blue opacity-10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4 theme-transition"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
                 
                 <!-- Hero Content -->
                 <div class="lg:col-span-7 space-y-6 lg:space-y-8 text-center lg:text-left">
-                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy/30 border border-brand-blue/30 text-brand-blue text-xs font-semibold tracking-wide uppercase mx-auto lg:mx-0">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-navy/30 border border-brand-blue/30 text-brand-blue text-xs font-semibold tracking-wide uppercase mx-auto lg:mx-0 theme-transition">
                         <span class="relative flex h-2 w-2">
-                          <!-- Updated ping color to orange -->
-                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
-                          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-blue"></span>
+                          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-blue opacity-75 theme-transition"></span>
+                          <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-blue theme-transition"></span>
                         </span>
                         New Batch Starts 23rd Nov
                     </div>
                     
                     <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
                         Software Development with <br class="hidden sm:block">
-                        <span class="text-gradient-primary">Specialization in AI</span>
+                        <span class="text-gradient-primary theme-transition">Specialization in AI</span>
                     </h1>
                     
                     <p class="text-base sm:text-lg text-gray-400 max-w-xl mx-auto lg:mx-0">
@@ -223,32 +248,31 @@
                     <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
                         <ul class="space-y-3 text-left">
                             <li class="flex items-center gap-3 text-gray-300 text-sm sm:text-base">
-                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0"></i>
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0 theme-transition"></i>
                                 <span>Placement Assistance</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300 text-sm sm:text-base">
-                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0"></i>
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0 theme-transition"></i>
                                 <span>1:1 Personalized Mentorship</span>
                             </li>
                         </ul>
                         <ul class="space-y-3 text-left">
                             <li class="flex items-center gap-3 text-gray-300 text-sm sm:text-base">
-                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0"></i>
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0 theme-transition"></i>
                                 <span>100% Live Interactive Classes</span>
                             </li>
                             <li class="flex items-center gap-3 text-gray-300 text-sm sm:text-base">
-                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0"></i>
+                                <i data-lucide="check-circle" class="text-brand-blue w-5 h-5 shrink-0 theme-transition"></i>
                                 <span>Industry Recognized Certificate</span>
                             </li>
                         </ul>
                     </div>
 
                     <div class="flex flex-col sm:flex-row gap-4 pt-4 justify-center lg:justify-start">
-                        <!-- Updated shadow and hover color -->
-                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-8 py-4 bg-brand-blue text-white rounded-lg font-bold text-lg hover:bg-orange-600 transition-all shadow-[0_4px_20px_rgba(233,94,40,0.4)] flex items-center justify-center gap-2">
+                        <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-8 py-4 bg-brand-blue text-white rounded-lg font-bold text-lg hover:brightness-110 transition-all shadow-[0_4px_20px_rgba(var(--brand-primary),0.4)] flex items-center justify-center gap-2 theme-transition">
                             Download Brochure <i data-lucide="download" class="w-5 h-5"></i>
                         </button>
-                        <button class="w-full sm:w-auto px-8 py-4 bg-transparent border border-gray-700 text-white rounded-lg font-bold text-lg hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center gap-2">
+                        <button class="w-full sm:w-auto px-8 py-4 bg-transparent border border-gray-700 text-white rounded-lg font-bold text-lg hover:border-brand-blue hover:text-brand-blue transition-all flex items-center justify-center gap-2 theme-transition">
                             View Syllabus <i data-lucide="arrow-right" class="w-5 h-5"></i>
                         </button>
                     </div>
@@ -266,7 +290,7 @@
 
                 <!-- Application Form -->
                 <div class="lg:col-span-5 relative mt-8 lg:mt-0" id="hero-form">
-                    <div class="absolute inset-0 bg-brand-blue blur-[60px] opacity-20"></div>
+                    <div class="absolute inset-0 bg-brand-blue blur-[60px] opacity-20 theme-transition"></div>
                     <div class="glass-panel-high p-6 sm:p-8 rounded-2xl relative z-10">
                         <div class="text-center mb-6">
                             <h3 class="text-2xl font-bold text-white">Book Free Career Counselling</h3>
@@ -275,20 +299,20 @@
                         <form class="space-y-4" onsubmit="event.preventDefault(); alert('Application Submitted!');">
                             <div>
                                 <label class="block text-xs font-medium text-gray-400 mb-1">Full Name</label>
-                                <input type="text" placeholder="John Doe" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                                <input type="text" placeholder="John Doe" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors theme-transition">
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-gray-400 mb-1">Email Address</label>
-                                <input type="email" placeholder="john@example.com" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                                <input type="email" placeholder="john@example.com" class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors theme-transition">
                             </div>
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                 <div>
                                     <label class="block text-xs font-medium text-gray-400 mb-1">Phone</label>
-                                    <input type="tel" placeholder="+91 98765..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                                    <input type="tel" placeholder="+91 98765..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors theme-transition">
                                 </div>
                                 <div>
                                     <label class="block text-xs font-medium text-gray-400 mb-1">Work Exp.</label>
-                                    <select class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors appearance-none">
+                                    <select class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors appearance-none theme-transition">
                                         <option>Student</option>
                                         <option>0-1 Years</option>
                                         <option>1-3 Years</option>
@@ -298,10 +322,9 @@
                             </div>
                             <div>
                                 <label class="block text-xs font-medium text-gray-400 mb-1">LinkedIn Profile</label>
-                                <input type="url" placeholder="linkedin.com/in/..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors">
+                                <input type="url" placeholder="linkedin.com/in/..." class="w-full bg-[#121212] border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-blue transition-colors theme-transition">
                             </div>
-                            <!-- Updated hover color -->
-                            <button type="submit" class="w-full bg-brand-blue hover:bg-orange-600 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg">
+                            <button type="submit" class="w-full bg-brand-blue hover:brightness-110 text-white font-bold py-4 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg theme-transition">
                                 Apply For Program
                             </button>
                             <p class="text-xs text-center text-gray-500">By clicking, you agree to our Terms & Conditions</p>
@@ -340,8 +363,8 @@
             </div>
             
             <!-- Timeline Component -->
-            <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-4 bg-brand-navy/20 px-6 py-3 rounded-xl sm:rounded-full border border-brand-blue/20">
-                <span class="text-brand-blue font-bold text-sm uppercase tracking-wider mb-2 sm:mb-0">Timeline</span>
+            <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-4 bg-brand-navy/20 px-6 py-3 rounded-xl sm:rounded-full border border-brand-blue/20 theme-transition">
+                <span class="text-brand-blue font-bold text-sm uppercase tracking-wider mb-2 sm:mb-0 theme-transition">Timeline</span>
                 <div class="flex items-center justify-between w-full sm:w-auto gap-2 text-sm text-gray-300">
                     <span>Apply</span>
                     <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
@@ -355,6 +378,7 @@
 
     <!-- Alumni Companies Marquee -->
     <section class="py-10 overflow-hidden bg-black">
+        <!-- ... existing marquee code ... -->
         <p class="text-center text-gray-500 text-sm uppercase tracking-widest mb-6">Our Alumni Work At</p>
         <div class="relative w-full flex overflow-x-hidden group">
             <div class="animate-marquee whitespace-nowrap flex gap-12 sm:gap-16 items-center">
@@ -380,84 +404,85 @@
     </section>
 
     <!-- Career Stats (USP) -->
-    <section class="py-16 sm:py-20 bg-brand-navy/10 relative">
+    <section class="py-16 sm:py-20 bg-brand-navy/10 relative theme-transition">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- ... existing stats ... -->
             <div class="text-center mb-12 sm:mb-16">
                 <h2 class="text-3xl lg:text-4xl font-bold mb-4">Numbers that speak for themselves</h2>
                 <p class="text-gray-400">Our career assistance program is designed to launch you into the top 1%.</p>
             </div>
             
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
                     <h3 class="text-3xl sm:text-4xl font-bold text-white mb-2">2150+</h3>
                     <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Placements</p>
                 </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2">135%</h3>
+                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
+                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2 theme-transition">135%</h3>
                     <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Avg. Hike</p>
                 </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
+                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
                     <h3 class="text-3xl sm:text-4xl font-bold text-white mb-2">490%</h3>
                     <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Highest Hike</p>
                 </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2">650+</h3>
+                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
+                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2 theme-transition">650+</h3>
                     <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Hiring Partners</p>
                 </div>
             </div>
 
-            <!-- Career Assistance Points (Updated) -->
+            <!-- Career Assistance Points -->
             <div class="mt-16">
-                <h3 class="text-2xl font-bold text-center mb-10 text-white">Comprehensive <span class="text-brand-blue">Career Assistance</span></h3>
+                <h3 class="text-2xl font-bold text-center mb-10 text-white">Comprehensive <span class="text-brand-blue theme-transition">Career Assistance</span></h3>
                 <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
                     <!-- Point 1: Placement Support -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                            <i data-lucide="briefcase" class="text-brand-blue w-7 h-7"></i>
+                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
+                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
+                            <i data-lucide="briefcase" class="text-brand-blue w-7 h-7 theme-transition"></i>
                         </div>
                         <div>
                             <h4 class="text-xl font-bold text-white mb-2">Placement Support</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">
-                                Our dedicated placement cell works tirelessly to connect you with top hiring partners. We provide exclusive job referrals, application tracking, and direct connections to HRs to ensure you don't miss any opportunity.
+                                Our dedicated placement cell works tirelessly to connect you with top hiring partners. We provide exclusive job referrals, application tracking, and direct connections to HRs.
                             </p>
                         </div>
                     </div>
 
                     <!-- Point 2: Interview Prep -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                            <i data-lucide="users" class="text-brand-blue w-7 h-7"></i>
+                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
+                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
+                            <i data-lucide="users" class="text-brand-blue w-7 h-7 theme-transition"></i>
                         </div>
                         <div>
                             <h4 class="text-xl font-bold text-white mb-2">Interview Prep</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">
-                                Master technical rounds with unlimited mock interviews conducted by industry experts. Get real-time feedback on Data Structures, Algorithms, and System Design to refine your approach before the real deal.
+                                Master technical rounds with unlimited mock interviews conducted by industry experts. Get real-time feedback on Data Structures, Algorithms, and System Design.
                             </p>
                         </div>
                     </div>
 
                     <!-- Point 3: Personal Branding -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                            <i data-lucide="fingerprint" class="text-brand-blue w-7 h-7"></i>
+                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
+                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
+                            <i data-lucide="fingerprint" class="text-brand-blue w-7 h-7 theme-transition"></i>
                         </div>
                         <div>
                             <h4 class="text-xl font-bold text-white mb-2">Personal Branding</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">
-                                Stand out from the crowd. We help you craft an ATS-friendly resume, build a strong GitHub portfolio, and optimize your LinkedIn profile to attract top recruiters and headhunters automatically.
+                                Stand out from the crowd. We help you craft an ATS-friendly resume, build a strong GitHub portfolio, and optimize your LinkedIn profile.
                             </p>
                         </div>
                     </div>
 
                     <!-- Point 4: Soft Skills Training -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                            <i data-lucide="mic" class="text-brand-blue w-7 h-7"></i>
+                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
+                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
+                            <i data-lucide="mic" class="text-brand-blue w-7 h-7 theme-transition"></i>
                         </div>
                         <div>
                             <h4 class="text-xl font-bold text-white mb-2">Soft Skills Training</h4>
                             <p class="text-sm text-gray-400 leading-relaxed">
-                                Technical skills get you the interview; soft skills get you the job. Participate in engaging workshops on effective communication, leadership, behavioral interview tactics, and salary negotiation.
+                                Technical skills get you the interview; soft skills get you the job. Participate in engaging workshops on effective communication and behavioral interview tactics.
                             </p>
                         </div>
                     </div>
@@ -466,14 +491,13 @@
         </div>
     </section>
 
-    <!-- Recent Placements (Scrolling Cards) -->
+    <!-- Recent Placements -->
     <section class="py-16 sm:py-20 bg-black overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-10 flex flex-col sm:flex-row justify-between items-end gap-4">
             <div class="w-full sm:w-auto">
                 <h2 class="text-2xl sm:text-3xl font-bold mb-2">Success Stories</h2>
                 <p class="text-gray-400 text-sm sm:text-base">Meet the graduates who transformed their careers.</p>
             </div>
-            <!-- Hide arrows on small screens, users swipe naturally -->
             <div class="hidden sm:flex gap-2">
                 <button id="scrollLeft" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-left"></i></button>
                 <button id="scrollRight" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-right"></i></button>
@@ -482,21 +506,21 @@
 
         <div id="placement-scroll" class="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar px-4 lg:px-20 pb-10 snap-x">
             <!-- Card 1 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
                         <img src="https://i.pravatar.cc/150?img=11" alt="Student" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h4 class="font-bold text-white">Ashish Joshi</h4>
-                        <p class="text-xs text-brand-blue">Eng. Manager @ OpenGov</p>
+                        <p class="text-xs text-brand-blue theme-transition">Eng. Manager @ OpenGov</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
                     <div class="text-center opacity-50">
                         <span class="text-xs block">Previous</span>
                     </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
                     <div class="text-center">
                         <span class="font-bold text-white block">OpenGov</span>
                     </div>
@@ -505,23 +529,23 @@
                     <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 490% Hike</span>
                 </div>
             </div>
-
+            
             <!-- Card 2 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
                         <img src="https://i.pravatar.cc/150?img=5" alt="Student" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h4 class="font-bold text-white">Ritik Gupta</h4>
-                        <p class="text-xs text-brand-blue">Data Engineer @ Coins91</p>
+                        <p class="text-xs text-brand-blue theme-transition">Data Engineer @ Coins91</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
                     <div class="text-center opacity-50">
                         <span class="text-xs block">NoBroker</span>
                     </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
                     <div class="text-center">
                         <span class="font-bold text-white block">Coins91</span>
                     </div>
@@ -531,22 +555,22 @@
                 </div>
             </div>
 
-             <!-- Card 3 -->
-             <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+            <!-- Card 3 -->
+            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
                         <img src="https://i.pravatar.cc/150?img=3" alt="Student" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h4 class="font-bold text-white">Gopal Yadav</h4>
-                        <p class="text-xs text-brand-blue">Software Eng. 3 @ Cisco</p>
+                        <p class="text-xs text-brand-blue theme-transition">Software Eng. 3 @ Cisco</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
                     <div class="text-center opacity-50">
                         <span class="text-xs block">Zest</span>
                     </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
                     <div class="text-center">
                         <span class="font-bold text-white block">Cisco</span>
                     </div>
@@ -555,22 +579,23 @@
                     <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 310% Hike</span>
                 </div>
             </div>
-             <!-- Card 4 -->
-             <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors">
+
+            <!-- Card 4 -->
+            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
                 <div class="flex items-center gap-4 mb-4">
                     <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
                         <img src="https://i.pravatar.cc/150?img=32" alt="Student" class="w-full h-full object-cover">
                     </div>
                     <div>
                         <h4 class="font-bold text-white">Avishkar Dalvi</h4>
-                        <p class="text-xs text-brand-blue">MTS III @ John Deere</p>
+                        <p class="text-xs text-brand-blue theme-transition">MTS III @ John Deere</p>
                     </div>
                 </div>
                 <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
                     <div class="text-center opacity-50">
                         <span class="text-xs block">Vmware</span>
                     </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue"></i>
+                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
                     <div class="text-center">
                         <span class="font-bold text-white block">John Deere</span>
                     </div>
@@ -585,20 +610,20 @@
     <!-- Mentors Section -->
     <section id="instructors" class="py-16 sm:py-20 bg-brand-surface relative overflow-hidden">
         <!-- Decoration -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 rounded-full blur-3xl"></div>
+        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 rounded-full blur-3xl theme-transition"></div>
 
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">Meet the Minds Behind <span class="text-brand-blue">The Program</span></h2>
+            <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">Meet the Minds Behind <span class="text-brand-blue theme-transition">The Program</span></h2>
             
             <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 <!-- Mentor 1 -->
                 <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
-                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0">
+                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0 theme-transition">
                         <img src="https://i.pravatar.cc/150?img=59" alt="Mentor" class="w-full h-full rounded-full object-cover">
                     </div>
                     <div class="text-center sm:text-left">
                         <h3 class="text-xl font-bold text-white">Abhishek Gupta</h3>
-                        <p class="text-brand-blue font-medium mb-2">Founder & CEO</p>
+                        <p class="text-brand-blue font-medium mb-2 theme-transition">Founder & CEO</p>
                         <p class="text-gray-400 text-sm mb-4">Founded Tutort Academy to bridge the gap between learning and real-world opportunities. Mentored thousands to secure roles at leading tech companies.</p>
                         <div class="flex justify-center sm:justify-start gap-3">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
@@ -608,12 +633,12 @@
 
                 <!-- Mentor 2 -->
                 <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
-                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0">
+                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0 theme-transition">
                         <img src="https://i.pravatar.cc/150?img=12" alt="Mentor" class="w-full h-full rounded-full object-cover">
                     </div>
                     <div class="text-center sm:text-left">
                         <h3 class="text-xl font-bold text-white">Sunny Mongia</h3>
-                        <p class="text-brand-blue font-medium mb-2">Curriculum Advisor</p>
+                        <p class="text-brand-blue font-medium mb-2 theme-transition">Curriculum Advisor</p>
                         <p class="text-gray-400 text-sm mb-4">14+ years of experience (Ex-JP Morgan). Deep expertise in DSA, System Design, and problem-solving. Aligns learning with real-world engineering.</p>
                         <div class="flex justify-center sm:justify-start gap-3">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
@@ -624,7 +649,7 @@
         </div>
     </section>
 
-    <!-- Course Benefits (Bento Grid) -->
+    <!-- Course Benefits -->
     <section class="py-16 sm:py-20 bg-black">
         <div class="max-w-7xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-12 text-center">Why choose this program?</h2>
@@ -632,9 +657,9 @@
             <div class="grid md:grid-cols-3 gap-6 auto-rows-auto sm:auto-rows-[200px]">
                 <!-- Large Card -->
                 <div class="md:col-span-2 row-span-2 glass-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden group min-h-[250px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-navy/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-brand-navy/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 theme-transition"></div>
                     <div class="relative z-10 h-full flex flex-col justify-end">
-                        <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center mb-4">
+                        <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center mb-4 theme-transition">
                             <i data-lucide="code" class="text-white"></i>
                         </div>
                         <h3 class="text-2xl font-bold text-white mb-2">GenAI Specialization</h3>
@@ -643,22 +668,22 @@
                 </div>
 
                 <!-- Small Card -->
-                <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors">
-                    <i data-lucide="award" class="text-brand-blue w-8 h-8 mb-4"></i>
+                <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors theme-transition">
+                    <i data-lucide="award" class="text-brand-blue w-8 h-8 mb-4 theme-transition"></i>
                     <h3 class="text-lg font-bold text-white mb-2">Flexible Learning</h3>
                     <p class="text-gray-400 text-sm">Tailored for working professionals.</p>
                 </div>
 
                  <!-- Small Card -->
-                 <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors">
-                    <i data-lucide="users" class="text-brand-blue w-8 h-8 mb-4"></i>
+                 <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors theme-transition">
+                    <i data-lucide="users" class="text-brand-blue w-8 h-8 mb-4 theme-transition"></i>
                     <h3 class="text-lg font-bold text-white mb-2">Daily Assessments</h3>
                     <p class="text-gray-400 text-sm">Curated problems to keep you sharp.</p>
                 </div>
 
                 <!-- Medium Card -->
-                <div class="md:col-span-1 row-span-2 glass-panel p-6 rounded-2xl flex flex-col justify-end group hover:bg-brand-navy/20 transition-colors min-h-[250px]">
-                    <i data-lucide="monitor-play" class="text-brand-blue w-10 h-10 mb-6"></i>
+                <div class="md:col-span-1 row-span-2 glass-panel p-6 rounded-2xl flex flex-col justify-end group hover:bg-brand-navy/20 transition-colors min-h-[250px] theme-transition">
+                    <i data-lucide="monitor-play" class="text-brand-blue w-10 h-10 mb-6 theme-transition"></i>
                     <h3 class="text-xl font-bold text-white mb-2">Live Classes</h3>
                     <p class="text-gray-400">100% Live sessions from industry experts. Recordings available within 4 hours if you miss a class.</p>
                 </div>
@@ -670,16 +695,16 @@
     <section id="curriculum" class="py-16 sm:py-20 bg-brand-surface">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-10 sm:mb-12">
-                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm">Comprehensive Roadmap</span>
+                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">Comprehensive Roadmap</span>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-2">Program Curriculum</h2>
             </div>
 
             <div class="space-y-4">
                 <!-- Module 0 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 0</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 0</span>
                             <span class="font-bold text-base sm:text-lg text-white">Programming Fundamentals</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -697,10 +722,10 @@
                 </div>
 
                 <!-- Module 1 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                          <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 1</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 1</span>
                             <span class="font-bold text-base sm:text-lg text-white">Data Structures & Algorithms</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -718,10 +743,10 @@
                 </div>
 
                  <!-- Module 2 -->
-                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 2</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 2</span>
                             <span class="font-bold text-base sm:text-lg text-white">System Design (LLD & HLD)</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -739,10 +764,10 @@
                 </div>
 
                  <!-- Module 3 -->
-                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 3</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 3</span>
                             <span class="font-bold text-base sm:text-lg text-white">Full Stack / Backend Specialization</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -760,10 +785,10 @@
                 </div>
 
                 <!-- Module 4 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                          <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 4</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 4</span>
                             <span class="font-bold text-base sm:text-lg text-white">Computer Fundamentals</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -781,10 +806,10 @@
                 </div>
 
                 <!-- Module 5 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50">
+                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
                     <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors">Mod 5</span>
+                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 5</span>
                             <span class="font-bold text-base sm:text-lg text-white">Generative AI Essentials</span>
                         </div>
                         <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
@@ -817,7 +842,7 @@
                         <div class="absolute inset-0 flex items-center justify-center text-gray-600">
                             <i data-lucide="car" class="w-12 h-12"></i>
                         </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
                             <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
                         </div>
                     </div>
@@ -839,7 +864,7 @@
                          <div class="absolute inset-0 flex items-center justify-center text-gray-600">
                             <i data-lucide="split" class="w-12 h-12"></i>
                         </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
                             <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
                         </div>
                     </div>
@@ -861,7 +886,7 @@
                          <div class="absolute inset-0 flex items-center justify-center text-gray-600">
                             <i data-lucide="video" class="w-12 h-12"></i>
                         </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
                             <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
                         </div>
                     </div>
@@ -886,21 +911,21 @@
                 <h2 class="text-3xl font-bold mb-6 text-center lg:text-left">Certified Excellence</h2>
                 <ul class="space-y-6">
                     <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="check" class="w-5 h-5"></i></div>
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="check" class="w-5 h-5"></i></div>
                         <div>
                             <h4 class="font-bold text-lg">Industry Recognized</h4>
                             <p class="text-gray-400 text-sm">Valid across 650+ hiring partners globally.</p>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="share-2" class="w-5 h-5"></i></div>
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="share-2" class="w-5 h-5"></i></div>
                         <div>
                             <h4 class="font-bold text-lg">Sharable on LinkedIn</h4>
                             <p class="text-gray-400 text-sm">Digital credential ID for instant verification.</p>
                         </div>
                     </li>
                     <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue"><i data-lucide="award" class="w-5 h-5"></i></div>
+                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="award" class="w-5 h-5"></i></div>
                         <div>
                             <h4 class="font-bold text-lg">Boost Career Opportunities</h4>
                             <p class="text-gray-400 text-sm">Enhance your profile skills and boost career opportunities with our certificate.</p>
@@ -909,12 +934,12 @@
                 </ul>
             </div>
             <div class="relative order-1 lg:order-2">
-                <div class="absolute inset-0 bg-brand-blue blur-3xl opacity-20"></div>
-                <div class="relative glass-panel-high border-2 border-brand-blue/30 p-4 sm:p-8 rounded-xl aspect-[4/3] flex flex-col justify-between">
+                <div class="absolute inset-0 bg-brand-blue blur-3xl opacity-20 theme-transition"></div>
+                <div class="relative glass-panel-high border-2 border-brand-blue/30 p-4 sm:p-8 rounded-xl aspect-[4/3] flex flex-col justify-between theme-transition">
                     <div class="flex justify-between items-start">
                         <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-brand-blue rounded"></div>
-                            <span class="font-bold text-lg sm:text-xl tracking-tight">Tutort<span class="text-brand-blue">Academy</span></span>
+                            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-brand-blue rounded theme-transition"></div>
+                            <span class="font-bold text-lg sm:text-xl tracking-tight">Tutort<span class="text-brand-blue theme-transition">Academy</span></span>
                         </div>
                         <div class="text-right text-[10px] sm:text-xs text-gray-400">
                             CERT ID: TA-2023-884
@@ -924,7 +949,7 @@
                         <p class="text-xs sm:text-sm text-gray-400 uppercase tracking-widest mb-2">This certifies that</p>
                         <h3 class="text-2xl sm:text-3xl font-serif italic text-white mb-4">Your Name Here</h3>
                         <p class="text-xs sm:text-sm text-gray-300">Has successfully completed the</p>
-                        <h4 class="text-lg sm:text-xl font-bold text-brand-blue">Software Development Program</h4>
+                        <h4 class="text-lg sm:text-xl font-bold text-brand-blue theme-transition">Software Development Program</h4>
                     </div>
                     <div class="flex justify-between items-end">
                         <div class="text-[10px] sm:text-xs text-gray-500">
@@ -941,89 +966,89 @@
     <section class="py-16 sm:py-20 bg-brand-surface relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 relative z-10">
             <div class="text-center mb-12 sm:mb-16">
-                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm">Join the Batch</span>
+                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">Join the Batch</span>
                 <h2 class="text-3xl font-bold mt-2">Simple Application Process</h2>
             </div>
             
             <!-- Updated Container: Flex for Mobile Horizontal Scroll, Grid for Desktop with items-start to prevent stretching -->
             <div class="flex overflow-x-auto snap-x pb-8 md:pb-0 md:grid md:grid-cols-4 gap-6 items-start no-scrollbar">
                 <!-- Step 1 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center">
-                    <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10">
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
+                    <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
                         <span class="font-bold text-white">01</span>
                     </div>
-                    <div class="mb-4 text-brand-blue">
+                    <div class="mb-4 text-brand-blue theme-transition">
                         <i data-lucide="file-edit" class="w-8 h-8"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Apply for Program</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4"></div>
+                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
                     <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                         Fill in your required details in the form above to register for the program. Our application process is designed to be straightforward, taking less than 2 minutes to complete your initial profile setup.
                     </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide">Hover for details</div>
+                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
                 </div>
 
                 <!-- Step 2 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10">
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
+                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
                         <span class="font-bold text-white">02</span>
                     </div>
-                    <div class="mb-4 text-brand-blue">
+                    <div class="mb-4 text-brand-blue theme-transition">
                         <i data-lucide="user-check" class="w-8 h-8"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Qualification Check</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4"></div>
+                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
                     <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                         We will review your profile to check your eligibility for the course. We ensure that all candidates meet the necessary prerequisites to maintain a high-quality peer learning environment for the batch.
                     </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide">Hover for details</div>
+                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
                 </div>
 
                 <!-- Step 3 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10">
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
+                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
                         <span class="font-bold text-white">03</span>
                     </div>
-                    <div class="mb-4 text-brand-blue">
+                    <div class="mb-4 text-brand-blue theme-transition">
                         <i data-lucide="video" class="w-8 h-8"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Session from Mentor</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4"></div>
+                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
                     <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                         A dedicated mentor will guide you through the course structure and how it works. This 1:1 session helps you understand the curriculum depth and clarify any doubts regarding career outcomes.
                     </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide">Hover for details</div>
+                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
                 </div>
 
                 <!-- Step 4 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10">
+                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
+                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
                         <span class="font-bold text-white">04</span>
                     </div>
-                    <div class="mb-4 text-brand-blue">
+                    <div class="mb-4 text-brand-blue theme-transition">
                         <i data-lucide="rocket" class="w-8 h-8"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-2">Enrollment Process</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4"></div>
+                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
                     <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
                         Sign up for the course with flexible payment options including EMI. Once enrolled, you get immediate access to the LMS and can begin your pre-course preparatory modules right away.
                     </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide">Hover for details</div>
+                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
                 </div>
             </div>
             
             <!-- Connection Line (Desktop Only) -->
-            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-navy to-transparent -z-10 translate-y-4"></div>
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-navy to-transparent -z-10 translate-y-4 theme-transition"></div>
         </div>
     </section>
 
     <!-- Pricing Section -->
-    <section id="pricing" class="py-16 sm:py-20 bg-brand-navy/20">
+    <section id="pricing" class="py-16 sm:py-20 bg-brand-navy/20 theme-transition">
         <div class="max-w-4xl mx-auto px-4">
             <h2 class="text-3xl font-bold mb-12 text-center">Invest in your future</h2>
             
-            <div class="glass-panel border-t-4 border-t-brand-blue p-6 sm:p-8 md:p-12 rounded-2xl relative">
-                <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] sm:text-xs font-bold px-3 sm:px-4 py-1 rounded-bl-xl rounded-tr-xl">
+            <div class="glass-panel border-t-4 border-t-brand-blue p-6 sm:p-8 md:p-12 rounded-2xl relative theme-transition">
+                <div class="absolute top-0 right-0 bg-brand-blue text-white text-[10px] sm:text-xs font-bold px-3 sm:px-4 py-1 rounded-bl-xl rounded-tr-xl theme-transition">
                     LIMITED SEATS
                 </div>
                 
@@ -1037,13 +1062,13 @@
                     </div>
                 </div>
 
-                <div class="bg-brand-blue/10 border border-brand-blue/30 rounded-lg p-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div class="bg-brand-blue/10 border border-brand-blue/30 rounded-lg p-4 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 theme-transition">
                     <div>
                         <span class="font-bold text-white block">Flexible EMI Options</span>
                         <span class="text-xs text-gray-400">Partners: Bajaj Finserv, Propelld, HDFC</span>
                     </div>
                     <div>
-                        <span class="font-bold text-brand-blue text-xl">₹ 7,866</span>
+                        <span class="font-bold text-brand-blue text-xl theme-transition">₹ 7,866</span>
                         <span class="text-xs text-gray-400">/mo</span>
                     </div>
                 </div>
@@ -1064,7 +1089,7 @@
                 </div>
 
                 <!-- Updated hover color -->
-                <button class="w-full bg-brand-blue hover:bg-orange-600 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-all">
+                <button class="w-full bg-brand-blue hover:brightness-110 text-white font-bold text-lg py-4 rounded-xl shadow-lg transition-all theme-transition">
                     Enroll Now
                 </button>
             </div>
@@ -1122,11 +1147,11 @@
 
     <!-- Final CTA -->
     <section class="py-20 sm:py-24 relative overflow-hidden text-center">
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-black"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-brand-navy to-black theme-transition"></div>
         <div class="relative z-10 max-w-4xl mx-auto px-4">
             <h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-6">Ready to transform your career?</h2>
             <p class="text-lg sm:text-xl text-gray-400 mb-10">Join 2000+ successful alumni who changed their lives with Tutort Academy.</p>
-            <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-10 py-5 bg-white text-brand-navy font-bold text-xl rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)]">
+            <button onclick="document.getElementById('hero-form').scrollIntoView({behavior: 'smooth'})" class="w-full sm:w-auto px-10 py-5 bg-white text-brand-navy font-bold text-xl rounded-full hover:scale-105 transition-transform shadow-[0_0_30px_rgba(255,255,255,0.3)] theme-transition">
                 Start Application Process
             </button>
         </div>
@@ -1138,10 +1163,10 @@
             <div class="grid md:grid-cols-4 gap-12 mb-12">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center gap-2 mb-4">
-                        <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center">
+                        <div class="w-8 h-8 bg-brand-blue rounded-lg flex items-center justify-center theme-transition">
                             <i data-lucide="code-2" class="text-white w-5 h-5"></i>
                         </div>
-                        <span class="font-bold text-xl tracking-tight">Tutort<span class="text-brand-blue">Academy</span></span>
+                        <span class="font-bold text-xl tracking-tight">Tutort<span class="text-brand-blue theme-transition">Academy</span></span>
                     </div>
                     <p class="text-gray-500 text-sm leading-relaxed max-w-sm">
                         Premier upskilling platform for ambitious developers. We bridge the gap between college education and industry requirements.
@@ -1187,6 +1212,27 @@
     <script>
         // Initialize Icons
         lucide.createIcons();
+
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeToggleMobileBtn = document.getElementById('theme-toggle-mobile');
+        const root = document.documentElement;
+        
+        // Check local storage for saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            root.setAttribute('data-theme', savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = root.getAttribute('data-theme');
+            const newTheme = currentTheme === 'blue' ? 'orange' : 'blue';
+            root.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+        themeToggleMobileBtn.addEventListener('click', toggleTheme);
 
         // Mobile Menu Toggle
         function toggleMobileMenu() {
