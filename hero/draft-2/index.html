@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EdTech Premium Landing Page</title>
+    <style>
+        /* --- RESET & VARIABLES --- */
+        :root {
+            /* Default Blue Theme */
+            --primary: rgba(21, 95, 255, 1);
+            --primary-dark: rgba(12, 55, 97, 1);
+            --accent: #00d2ff; /* Cyan accent for blue theme */
+            
+            --bg-dark: #050505;
+            --bg-card: #111111;
+            --bg-card-hover: #1a1a1a;
+            
+            --text-main: #ffffff;
+            --text-muted: #a0a0a0;
+            
+            --spacing-unit: 1rem;
+            --border-radius: 12px;
+            --transition-speed: 0.3s;
+        }
+
+        /* Rust Theme Override Class */
+        body.rust-theme {
+            --primary: rgba(233, 94, 40, 1);
+            --primary-dark: rgba(122, 52, 24, 1);
+            --accent: #ffb347; /* Orange accent */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            transition: background-color 0.5s ease;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+        
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #fff 0%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            border: none;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+        }
+
+        /* --- THEME SWITCHER --- */
+        .theme-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 10px;
+            border-radius: 30px;
+            display: flex;
+            gap: 10px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .theme-btn {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: transform 0.2s;
+        }
+        .theme-btn.blue { background: #155FFF; }
+        .theme-btn.rust { background: #E95E28; }
+        .theme-btn:hover { transform: scale(1.2); }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: radial-gradient(circle at top right, var(--primary-dark), var(--bg-dark) 60%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .commitment-text {
+            font-size: 1.5rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 40px;
+            display: block;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            border-left: 3px solid var(--primary);
+            backdrop-filter: blur(5px);
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* HERO VISUAL (RADAR + ALUMNI) */
+        .hero-visual {
+            position: relative;
+            height: 600px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .radar-graph {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            opacity: 0.3;
+            animation: radarPulse 4s infinite ease-in-out;
+        }
+
+        @keyframes radarPulse {
+            0%, 100% { transform: scale(1); opacity: 0.3; }
+            50% { transform: scale(1.05); opacity: 0.5; }
+        }
+
+        .radar-svg path {
+            fill: none;
+            stroke: var(--primary);
+            stroke-width: 1;
+        }
+        .radar-svg polygon {
+            fill: var(--primary-dark);
+            stroke: var(--primary);
+            stroke-width: 2;
+            fill-opacity: 0.3;
+        }
+
+        .alum-node {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 2px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0;
+            transform: scale(0);
+            z-index: 10;
+        }
+        
+        .alum-node.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .alum-node img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            padding: 2px;
+        }
+
+        .alum-tooltip {
+            position: absolute;
+            bottom: -30px;
+            background: white;
+            color: black;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        }
+
+        .alum-node:hover .alum-tooltip { opacity: 1; }
+
+        /* --- SCROLLING STRIPS --- */
+        .marquee-section {
+            background: var(--bg-card);
+            padding: 40px 0;
+            overflow: hidden;
+            border-top: 1px solid #222;
+            border-bottom: 1px solid #222;
+        }
+
+        .marquee-container {
+            display: flex;
+            gap: 40px;
+            width: max-content;
+        }
+
+        .marquee-left { animation: scrollLeft 30s linear infinite; }
+        .marquee-right { animation: scrollRight 30s linear infinite; }
+
+        .company-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #444; /* Placeholder for logo styling */
+            white-space: nowrap;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .company-logo svg { fill: #555; height: 30px; width: auto; }
+
+        @keyframes scrollLeft {
+            to { transform: translateX(-50%); }
+        }
+        @keyframes scrollRight {
+            from { transform: translateX(-50%); }
+            to { transform: translateX(0); }
+        }
+
+        /* --- COURSES SECTION --- */
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .course-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.05);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border-color: var(--primary);
+        }
+
+        .course-thumb {
+            height: 240px;
+            background: #222;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .course-card:hover .course-thumb img { transform: scale(1.1); }
+
+        .course-body { padding: 24px; }
+        
+        .course-tags {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 16px;
+        }
+        .tag {
+            background: rgba(255,255,255,0.1);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .instructor-strip {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .instructor-text { font-size: 0.8rem; color: var(--text-muted); }
+        .instructor-logos { display: flex; gap: 8px; }
+        .instructor-logo { width: 24px; height: 24px; background: #333; border-radius: 4px; }
+
+        /* --- REVIEWS (DETAILED) --- */
+        .reviews-container {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            gap: 30px;
+            padding-bottom: 40px;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        .reviews-container::-webkit-scrollbar { display: none; }
+
+        .review-card {
+            min-width: 400px;
+            background: var(--bg-card);
+            padding: 30px;
+            border-radius: var(--border-radius);
+            scroll-snap-align: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .review-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #333;
+            object-fit: cover;
+        }
+
+        .hike-badge {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-left: auto;
+        }
+
+        .company-transition {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+        }
+        .arrow-icon { color: var(--text-muted); }
+
+        /* --- REVIEWS (COMPACT) --- */
+        .compact-reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 60px;
+        }
+
+        .mini-card {
+            background: var(--bg-card-hover);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .mini-card:hover { transform: scale(1.03); }
+        .mini-hike {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        /* --- BLOGS --- */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        .blog-card {
+            background: var(--bg-card);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+        }
+        .blog-content { padding: 20px; }
+        .blog-date { color: var(--primary); font-size: 0.85rem; margin-bottom: 8px; display: block;}
+
+        /* --- CTA --- */
+        .cta-section {
+            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80');
+            background-size: cover;
+            background-attachment: fixed;
+            text-align: center;
+            padding: 120px 0;
+        }
+
+        .cta-title {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 992px) {
+            .hero-grid { grid-template-columns: 1fr; text-align: center; }
+            .hero-visual { height: 400px; margin-top: 40px; }
+            .blog-grid { grid-template-columns: repeat(2, 1fr); }
+            .metrics-grid { text-align: left; }
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid { grid-template-columns: 1fr; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 2.5rem; }
+            .review-card { min-width: 85vw; }
+            .cta-title { font-size: 2.5rem; }
+        }
+        
+        /* Helper for SVG Icons */
+        .icon { width: 24px; height: 24px; vertical-align: middle; }
+    </style>
+</head>
+<body>
+
+    <!-- Theme Switcher -->
+    <div class="theme-switch">
+        <div class="theme-btn blue" onclick="setTheme('blue')" title="Blue Theme"></div>
+        <div class="theme-btn rust" onclick="setTheme('rust')" title="Rust Theme"></div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <span class="commitment-text">Master Your Future</span>
+                <h1 class="gradient-text">Unlock Your Potential with Industry-Driven Tech Skills</h1>
+                <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem; line-height: 1.6;">
+                    Join the elite 1% of developers. Curriculum designed by engineers from MAANG to get you hired at top product companies.
+                </p>
+                
+                <button class="btn">Explore Courses</button>
+
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">1200+</div>
+                        <div class="metric-label">Career Transitions</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">145%</div>
+                        <div class="metric-label">Avg. Salary Hike</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">45 LPA</div>
+                        <div class="metric-label">Highest CTC</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">92%</div>
+                        <div class="metric-label">Success Rate</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-visual" id="heroVisual">
+                <!-- SVG Radar Background -->
+                <div class="radar-graph">
+                    <svg viewBox="0 0 200 200" class="radar-svg">
+                        <circle cx="100" cy="100" r="98" fill="none" stroke="currentColor" stroke-opacity="0.2"/>
+                        <circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-opacity="0.2"/>
+                        <circle cx="100" cy="100" r="40" fill="none" stroke="currentColor" stroke-opacity="0.2"/>
+                        <path d="M100 0 V200 M0 100 H200 M29 29 L171 171 M29 171 L171 29" stroke="currentColor" stroke-opacity="0.1"/>
+                        <polygon points="100,20 170,60 160,140 100,180 40,140 30,60" />
+                        <!-- Data Points -->
+                        <circle cx="100" cy="20" r="2" fill="var(--accent)"/>
+                        <circle cx="170" cy="60" r="2" fill="var(--accent)"/>
+                        <circle cx="160" cy="140" r="2" fill="var(--accent)"/>
+                        <circle cx="100" cy="180" r="2" fill="var(--accent)"/>
+                        <circle cx="40" cy="140" r="2" fill="var(--accent)"/>
+                        <circle cx="30" cy="60" r="2" fill="var(--accent)"/>
+                    </svg>
+                </div>
+                <!-- Alumnus Nodes (Populated by JS) -->
+                <div id="alumniContainer"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hiring Partners (Moving Strip) -->
+    <section class="section-padding" style="padding-top: 40px; background: #000;">
+        <div class="container">
+            <h4 style="text-align: center; color: var(--text-muted); margin-bottom: 20px;">TRUSTED BY LEADING TECH GIANTS</h4>
+        </div>
+        <div class="marquee-section" style="border: none; padding: 20px 0;">
+            <div class="marquee-container marquee-left">
+                <!-- Logos Repeated for Loop -->
+                <span class="company-logo">GOOGLE</span>
+                <span class="company-logo">AMAZON</span>
+                <span class="company-logo">MICROSOFT</span>
+                <span class="company-logo">UBER</span>
+                <span class="company-logo">ATLASSIAN</span>
+                <span class="company-logo">NETFLIX</span>
+                <span class="company-logo">META</span>
+                <!-- Repeat -->
+                <span class="company-logo">GOOGLE</span>
+                <span class="company-logo">AMAZON</span>
+                <span class="company-logo">MICROSOFT</span>
+                <span class="company-logo">UBER</span>
+                <span class="company-logo">ATLASSIAN</span>
+                <span class="company-logo">NETFLIX</span>
+                <span class="company-logo">META</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Courses Section -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="gradient-text" style="font-size: 2.5rem; margin-bottom: 40px;">Our Premium Programs</h2>
+            <div class="courses-grid">
+                <!-- Course 1 -->
+                <div class="course-card">
+                    <div class="course-thumb">
+                        <img src="https://images.unsplash.com/photo-1587620962725-abab7fe55159?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Coding">
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tags">
+                            <span class="tag">Full Stack</span>
+                            <span class="tag">Live Classes</span>
+                        </div>
+                        <h3>Full Stack Web Development</h3>
+                        <p style="color: var(--text-muted); margin: 10px 0;">Master the MERN stack with system design. Build scalable applications from scratch.</p>
+                        <div class="instructor-strip">
+                            <span class="instructor-text">Instructors from:</span>
+                            <div class="instructor-logos">
+                                <span style="font-weight: bold; font-size: 0.8rem;">Google</span>
+                                <span style="font-weight: bold; font-size: 0.8rem;">/ Meta</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course 2 -->
+                <div class="course-card">
+                    <div class="course-thumb">
+                        <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Data">
+                    </div>
+                    <div class="course-body">
+                        <div class="course-tags">
+                            <span class="tag">Data Science</span>
+                            <span class="tag">AI/ML</span>
+                        </div>
+                        <h3>Data Science & Machine Learning</h3>
+                        <p style="color: var(--text-muted); margin: 10px 0;">Deep dive into algorithms, predictive modeling, and deep learning architectures.</p>
+                        <div class="instructor-strip">
+                            <span class="instructor-text">Instructors from:</span>
+                            <div class="instructor-logos">
+                                <span style="font-weight: bold; font-size: 0.8rem;">Amazon</span>
+                                <span style="font-weight: bold; font-size: 0.8rem;">/ Uber</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Placement Marquees -->
+    <section class="section-padding" style="background: var(--bg-card);">
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 40px;">Where Our Students Work</h2>
+        </div>
+        
+        <div class="marquee-section">
+            <!-- Row 1 Left -->
+            <div class="marquee-container marquee-left" style="animation-duration: 40s;">
+                <span class="company-logo">SALESFORCE</span>
+                <span class="company-logo">PAYPAL</span>
+                <span class="company-logo">ADOBE</span>
+                <span class="company-logo">LINKEDIN</span>
+                <span class="company-logo">TWITTER</span>
+                <span class="company-logo">SPOTIFY</span>
+                <span class="company-logo">SALESFORCE</span>
+                <span class="company-logo">PAYPAL</span>
+                <span class="company-logo">ADOBE</span>
+                <span class="company-logo">LINKEDIN</span>
+                <span class="company-logo">TWITTER</span>
+                <span class="company-logo">SPOTIFY</span>
+            </div>
+            <!-- Row 2 Right -->
+            <div class="marquee-container marquee-right" style="animation-duration: 45s; margin-top: 20px;">
+                <span class="company-logo">SWIGGY</span>
+                <span class="company-logo">ZOMATO</span>
+                <span class="company-logo">FLIPKART</span>
+                <span class="company-logo">CRED</span>
+                <span class="company-logo">RAZORPAY</span>
+                <span class="company-logo">ZERODHA</span>
+                <span class="company-logo">SWIGGY</span>
+                <span class="company-logo">ZOMATO</span>
+                <span class="company-logo">FLIPKART</span>
+                <span class="company-logo">CRED</span>
+                <span class="company-logo">RAZORPAY</span>
+                <span class="company-logo">ZERODHA</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Student Reviews (Detailed) -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="margin-bottom: 30px;">Success Stories</h2>
+            <div class="reviews-container">
+                <!-- Review 1 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar" alt="User">
+                        <div>
+                            <h4>Arjun K.</h4>
+                            <span style="color: #0077b5; font-size: 0.8rem;">LinkedIn Verified</span>
+                        </div>
+                        <div class="hike-badge">200% Hike</div>
+                    </div>
+                    <p style="color: #ccc; line-height: 1.6;">"The system design module was a game changer. I cracked the SDE-2 role at Amazon thanks to the deep dive sessions."</p>
+                    <div class="company-transition">
+                        <div style="font-weight: bold;">TCS</div>
+                        <div class="arrow-icon">→</div>
+                        <div style="font-weight: bold; color: var(--primary);">Amazon</div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar" alt="User">
+                        <div>
+                            <h4>Priya S.</h4>
+                            <span style="color: #0077b5; font-size: 0.8rem;">LinkedIn Verified</span>
+                        </div>
+                        <div class="hike-badge">150% Hike</div>
+                    </div>
+                    <p style="color: #ccc; line-height: 1.6;">"Coming from a non-CS background, I was skeptical. The curriculum is structured perfectly for beginners to advanced."</p>
+                    <div class="company-transition">
+                        <div style="font-weight: bold;">Infosys</div>
+                        <div class="arrow-icon">→</div>
+                        <div style="font-weight: bold; color: var(--primary);">Microsoft</div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/85.jpg" class="avatar" alt="User">
+                        <div>
+                            <h4>Rahul M.</h4>
+                            <span style="color: #0077b5; font-size: 0.8rem;">LinkedIn Verified</span>
+                        </div>
+                        <div class="hike-badge">300% Hike</div>
+                    </div>
+                    <p style="color: #ccc; line-height: 1.6;">"Best investment of my career. The mock interviews with real hiring managers helped me overcome my anxiety."</p>
+                    <div class="company-transition">
+                        <div style="font-weight: bold;">Service Based</div>
+                        <div class="arrow-icon">→</div>
+                        <div style="font-weight: bold; color: var(--primary);">Google</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Compact Reviews Grid -->
+            <div class="compact-reviews">
+                <div class="mini-card">
+                    <div class="mini-hike">120%</div>
+                    <div>Wipro → Walmart</div>
+                    <small style="color: var(--text-muted); display: block; margin-top: 5px;">Suresh R.</small>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-hike">180%</div>
+                    <div>Capgemini → OLA</div>
+                    <small style="color: var(--text-muted); display: block; margin-top: 5px;">Anita D.</small>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-hike">90%</div>
+                    <div>Accenture → Target</div>
+                    <small style="color: var(--text-muted); display: block; margin-top: 5px;">John Doe</small>
+                </div>
+                <div class="mini-card">
+                    <div class="mini-hike">210%</div>
+                    <div>Startup → Atlassian</div>
+                    <small style="color: var(--text-muted); display: block; margin-top: 5px;">Meera K.</small>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Platform Reviews -->
+    <section class="section-padding" style="background: #000;">
+        <div class="container" style="text-align: center;">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <h3 style="font-size: 2rem;">4.9/5</h3>
+                    <p style="color: var(--text-muted);">CourseReport</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem;">4.8/5</h3>
+                    <p style="color: var(--text-muted);">TrustPilot</p>
+                </div>
+                <div>
+                    <h3 style="font-size: 2rem;">4.9/5</h3>
+                    <p style="color: var(--text-muted);">Google Reviews</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blogs -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 style="margin-bottom: 30px;">Latest Insights</h2>
+            <div class="blog-grid">
+                <div class="blog-card">
+                    <div class="course-thumb" style="height: 180px;">
+                        <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Blog">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">Oct 12, 2023</span>
+                        <h4>How to Crack System Design Interviews</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">A comprehensive guide to scaling distributed systems...</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="course-thumb" style="height: 180px;">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Blog">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">Nov 05, 2023</span>
+                        <h4>The Future of AI in Software Engineering</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Will AI replace coders? Here is what you need to know.</p>
+                    </div>
+                </div>
+                <div class="blog-card">
+                    <div class="course-thumb" style="height: 180px;">
+                        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Blog">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-date">Dec 01, 2023</span>
+                        <h4>Dynamic Programming Demystified</h4>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 10px;">Breaking down complex algorithms into simple steps.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2 class="cta-title">Ready to Transform?</h2>
+            <p style="font-size: 1.2rem; margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+                Join the cohort starting next week. Limited seats available for the Premium Full Stack batch.
+            </p>
+            <button class="btn" style="transform: scale(1.2);">Apply Now</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer style="padding: 40px 0; border-top: 1px solid #222; text-align: center; color: var(--text-muted);">
+        <p>&copy; 2023 EdTech Premium. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- DATA: ALUMNI ---
+        const alumniData = [
+            { name: "John D.", company: "Google", img: "https://randomuser.me/api/portraits/men/1.jpg" },
+            { name: "Sarah M.", company: "Meta", img: "https://randomuser.me/api/portraits/women/2.jpg" },
+            { name: "Mike R.", company: "Amazon", img: "https://randomuser.me/api/portraits/men/3.jpg" },
+            { name: "Emily W.", company: "Netflix", img: "https://randomuser.me/api/portraits/women/4.jpg" },
+            { name: "David K.", company: "Uber", img: "https://randomuser.me/api/portraits/men/5.jpg" },
+            { name: "Lisa P.", company: "Adobe", img: "https://randomuser.me/api/portraits/women/6.jpg" },
+            { name: "Tom H.", company: "Microsoft", img: "https://randomuser.me/api/portraits/men/7.jpg" },
+            { name: "Anna B.", company: "Apple", img: "https://randomuser.me/api/portraits/women/8.jpg" },
+            { name: "Chris L.", company: "Spotify", img: "https://randomuser.me/api/portraits/men/9.jpg" },
+            { name: "Nina T.", company: "Twitter", img: "https://randomuser.me/api/portraits/women/10.jpg" }
+        ];
+
+        // --- LOGIC: HERO ANIMATION ---
+        const visualContainer = document.getElementById('heroVisual');
+        const containerRect = visualContainer.getBoundingClientRect();
+        const centerX = containerRect.width / 2;
+        const centerY = containerRect.height / 2;
+        const radius = 180; // Radius of orbit
+
+        // Create Nodes
+        const nodes = [];
+        const containerEl = document.getElementById('alumniContainer');
+
+        alumniData.forEach((alum, index) => {
+            const el = document.createElement('div');
+            el.className = 'alum-node';
+            
+            // Initial positioning (circle)
+            const angle = (index / 5) * Math.PI * 2; // Split into two groups of 5 effectively for positioning calculation, but we want random spread
+            const spreadAngle = (index / alumniData.length) * Math.PI * 2;
+            
+            // Set data attributes for tooltip
+            el.innerHTML = `
+                <img src="${alum.img}" alt="${alum.name}">
+                <div class="alum-tooltip">${alum.name} @ ${alum.company}</div>
+            `;
+            
+            // Calculate Position
+            const x = Math.cos(spreadAngle) * radius;
+            const y = Math.sin(spreadAngle) * radius;
+            
+            el.style.left = `calc(50% + ${x}px - 30px)`; // -30px is half width
+            el.style.top = `calc(50% + ${y}px - 30px)`;
+            
+            containerEl.appendChild(el);
+            nodes.push(el);
+        });
+
+        // Toggle Visibility (Infinite Loop)
+        let showFirstBatch = true;
+        
+        function toggleAlumni() {
+            nodes.forEach((node, index) => {
+                const isFirstBatch = index < 5;
+                if ((showFirstBatch && isFirstBatch) || (!showFirstBatch && !isFirstBatch)) {
+                    // Show
+                    setTimeout(() => {
+                        node.classList.add('active');
+                    }, index * 100); // Stagger effect
+                } else {
+                    // Hide
+                    node.classList.remove('active');
+                }
+            });
+            showFirstBatch = !showFirstBatch;
+        }
+
+        // Start Loop
+        toggleAlumni();
+        setInterval(toggleAlumni, 4000); // Switch every 4 seconds
+
+        // Mouse Parallax Effect
+        visualContainer.addEventListener('mousemove', (e) => {
+            const x = (e.clientX - containerRect.left - centerX) / 20;
+            const y = (e.clientY - containerRect.top - centerY) / 20;
+
+            document.querySelector('.radar-graph').style.transform = `translate(${x}px, ${y}px) scale(1.05)`; // Maintain scale from keyframe roughly
+            
+            nodes.forEach((node, i) => {
+                const depth = 1 + (i % 3) * 0.5; // vary movement speed
+                node.style.transform = `translate(${x * depth}px, ${y * depth}px) scale(${node.classList.contains('active') ? 1 : 0})`;
+            });
+        });
+
+        // Reset transform on leave
+        visualContainer.addEventListener('mouseleave', () => {
+             document.querySelector('.radar-graph').style.transform = '';
+             nodes.forEach(node => {
+                 // re-apply scale logic based on active state, remove translate
+                 node.style.transform = node.classList.contains('active') ? 'scale(1)' : 'scale(0)';
+             });
+        });
+
+
+        // --- LOGIC: THEME SWITCHER ---
+        function setTheme(theme) {
+            const body = document.body;
+            if (theme === 'rust') {
+                body.classList.add('rust-theme');
+            } else {
+                body.classList.remove('rust-theme');
+            }
+        }
+
+        // --- OBSERVER FOR SCROLL ANIMATIONS ---
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Apply fade-in to sections (Simple script injection for animation styles)
+        document.querySelectorAll('.course-card, .review-card, .blog-card, .metric-card').forEach((el, i) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            el.style.transitionDelay = `${i % 3 * 0.1}s`; // Stagger
+            observer.observe(el);
+        });
+
+    </script>
+</body>
+</html>
