@@ -159,6 +159,16 @@
         .theme-transition {
             transition: all 0.3s ease;
         }
+
+        /* Hero Grid Background */
+        .bg-grid-pattern {
+            background-size: 30px 30px;
+            background-image: 
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-blue selection:text-white">
@@ -222,6 +232,9 @@
         <!-- Background Elements -->
         <div class="absolute top-0 right-0 w-1/2 h-full bg-brand-navy opacity-20 blur-[120px] rounded-full translate-x-1/2 -translate-y-1/4 theme-transition"></div>
         <div class="absolute bottom-0 left-0 w-1/2 h-full bg-brand-blue opacity-10 blur-[120px] rounded-full -translate-x-1/4 translate-y-1/4 theme-transition"></div>
+        
+        <!-- Grid Background -->
+        <div class="absolute inset-0 z-0 bg-grid-pattern pointer-events-none"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
