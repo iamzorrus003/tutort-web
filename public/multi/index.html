@@ -187,6 +187,69 @@
                 <!-- Desktop Menu -->
                 <div class="hidden md:block">
                     <div class="flex items-center space-x-8">
+                        <!-- Courses Dropdown (New) -->
+                        <div class="relative group">
+                            <button class="flex items-center gap-1 text-sm text-gray-300 hover:text-white transition-colors py-5 focus:outline-none">
+                                Courses <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200 group-hover:rotate-180"></i>
+                            </button>
+                            
+                            <!-- Dropdown Menu -->
+                            <div class="absolute top-full -left-20 w-[600px] pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0">
+                                <div class="glass-panel-high rounded-xl overflow-hidden shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] border border-white/10 flex">
+                                    
+                                    <!-- Section 1: 2x2 Grid (4 Courses) -->
+                                    <div class="w-2/3 p-6 grid grid-cols-2 gap-6 bg-[#0A0A0A]/95 backdrop-blur-xl">
+                                        <a href="#" class="group/item block space-y-1">
+                                            <div class="flex items-start gap-2 text-white font-semibold group-hover/item:text-brand-blue transition-colors">
+                                                <i data-lucide="cpu" class="w-4 h-4 mt-1 shrink-0"></i>
+                                                <span class="leading-tight">DSA & System Design with High Scalability</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 pl-6">Master algorithms & high-level design.</p>
+                                        </a>
+                                        
+                                        <a href="#" class="group/item block space-y-1">
+                                            <div class="flex items-start gap-2 text-white font-semibold group-hover/item:text-brand-blue transition-colors">
+                                                <i data-lucide="layers" class="w-4 h-4 mt-1 shrink-0"></i>
+                                                <span class="leading-tight">Full Stack Development with Cloud</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 pl-6">MERN Stack with Real-world projects.</p>
+                                        </a>
+
+                                        <a href="#" class="group/item block space-y-1">
+                                            <div class="flex items-start gap-2 text-white font-semibold group-hover/item:text-brand-blue transition-colors">
+                                                <i data-lucide="database" class="w-4 h-4 mt-1 shrink-0"></i>
+                                                <span class="leading-tight">Data Science & Machine Learning</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 pl-6">Python, SQL, and predictive modeling.</p>
+                                        </a>
+
+                                        <a href="#" class="group/item block space-y-1">
+                                            <div class="flex items-start gap-2 text-white font-semibold group-hover/item:text-brand-blue transition-colors">
+                                                <i data-lucide="cloud" class="w-4 h-4 mt-1 shrink-0"></i>
+                                                <span class="leading-tight">Cloud Computing & DevOps Architecture</span>
+                                            </div>
+                                            <p class="text-xs text-gray-500 pl-6">AWS, Docker, Kubernetes & CI/CD.</p>
+                                        </a>
+                                    </div>
+
+                                    <!-- Section 2: 1x1 (Featured Course) -->
+                                    <div class="w-1/3 bg-gradient-to-br from-brand-navy/80 to-black p-6 flex flex-col justify-between relative overflow-hidden group/featured">
+                                        <div class="absolute top-0 right-0 w-32 h-32 bg-brand-blue/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 theme-transition"></div>
+                                        
+                                        <div>
+                                            <span class="text-[10px] font-bold text-brand-blue uppercase tracking-wider mb-2 block theme-transition">Trending Now</span>
+                                            <h4 class="text-lg font-bold text-white leading-tight mb-2">Generative AI & LLM Specialization</h4>
+                                            <p class="text-xs text-gray-400">Build LLMs, RAG pipelines, and AI agents.</p>
+                                        </div>
+                                        
+                                        <a href="#" class="inline-flex items-center gap-2 text-sm font-bold text-white hover:text-brand-blue transition-colors mt-4">
+                                            View Program <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <a href="#curriculum" class="text-sm text-gray-300 hover:text-white transition-colors">Curriculum</a>
                         <a href="#instructors" class="text-sm text-gray-300 hover:text-white transition-colors">Mentors</a>
                         <a href="#pricing" class="text-sm text-gray-300 hover:text-white transition-colors">Pricing</a>
@@ -215,8 +278,23 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="md:hidden glass-panel border-t border-white/5 absolute w-full">
+        <div id="mobile-menu" class="md:hidden glass-panel border-t border-white/5 absolute w-full max-h-0 overflow-y-auto transition-all duration-300 ease-in-out opacity-0">
             <div class="px-4 pt-2 pb-6 space-y-4 flex flex-col items-center bg-black/95 backdrop-blur-xl">
+                <!-- Mobile Courses Accordion -->
+                <div class="w-full">
+                    <button id="mobile-courses-btn" class="w-full flex items-center justify-center gap-2 text-gray-300 hover:text-white px-3 py-2 rounded-md text-base font-medium focus:outline-none">
+                        Courses <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300"></i>
+                    </button>
+                    <div id="mobile-courses-list" class="hidden flex-col items-center bg-white/5 rounded-xl mt-2 p-4 space-y-3">
+                        <a href="#" class="text-sm text-gray-300 hover:text-white text-center">DSA & System Design</a>
+                        <a href="#" class="text-sm text-gray-300 hover:text-white text-center">Full Stack Development</a>
+                        <a href="#" class="text-sm text-gray-300 hover:text-white text-center">Data Science & ML</a>
+                        <a href="#" class="text-sm text-gray-300 hover:text-white text-center">Cloud & DevOps</a>
+                        <div class="h-px w-full bg-white/10 my-1"></div>
+                        <a href="#" class="text-sm font-bold text-brand-blue text-center">Generative AI Specialization</a>
+                    </div>
+                </div>
+
                 <a href="#curriculum" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Curriculum</a>
                 <a href="#instructors" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Mentors</a>
                 <a href="#pricing" class="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium" onclick="toggleMobileMenu()">Pricing</a>
@@ -348,710 +426,102 @@
         </div>
     </section>
 
-    <!-- Ratings & Trust -->
-    <section class="border-y border-white/5 bg-brand-surface py-8">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col lg:flex-row justify-between items-center gap-6 lg:gap-8">
-            <div class="flex flex-col sm:flex-row gap-6 sm:gap-8 items-center">
-                <div class="text-center sm:text-left">
-                    <div class="flex justify-center sm:justify-start items-center gap-1 text-yellow-400 mb-1">
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                    </div>
-                    <p class="text-sm text-gray-400"><span class="text-white font-bold">4.9/5</span> on Google Reviews</p>
-                </div>
-                <div class="h-px w-20 sm:w-px sm:h-10 bg-gray-800"></div>
-                 <div class="text-center sm:text-left">
-                    <div class="flex justify-center sm:justify-start items-center gap-1 text-yellow-400 mb-1">
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star" class="fill-current w-5 h-5"></i>
-                        <i data-lucide="star-half" class="fill-current w-5 h-5"></i>
-                    </div>
-                    <p class="text-sm text-gray-400"><span class="text-white font-bold">4.8/5</span> on SwitchUp</p>
-                </div>
-            </div>
-            
-            <!-- Timeline Component -->
-            <div class="w-full sm:w-auto flex flex-col sm:flex-row items-center gap-4 bg-brand-navy/20 px-6 py-3 rounded-xl sm:rounded-full border border-brand-blue/20 theme-transition">
-                <span class="text-brand-blue font-bold text-sm uppercase tracking-wider mb-2 sm:mb-0 theme-transition">Timeline</span>
-                <div class="flex items-center justify-between w-full sm:w-auto gap-2 text-sm text-gray-300">
-                    <span>Apply</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                    <span>Screening</span>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-gray-600"></i>
-                    <span class="text-white font-semibold">Start Nov 23</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Alumni Companies Marquee -->
-    <section class="py-10 overflow-hidden bg-black">
-        <!-- ... existing marquee code ... -->
-        <p class="text-center text-gray-500 text-sm uppercase tracking-widest mb-6">Our Alumni Work At</p>
-        <div class="relative w-full flex overflow-x-hidden group">
-            <div class="animate-marquee whitespace-nowrap flex gap-12 sm:gap-16 items-center">
-                <!-- Logos (duplicated for infinite loop) -->
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">GOOGLE</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">WALMART</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">CRED</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">AMAZON</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">PAYPAL</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">FLIPKART</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">MICROSOFT</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">JP MORGAN</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">GOOGLE</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">WALMART</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">CRED</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">AMAZON</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">PAYPAL</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">FLIPKART</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">MICROSOFT</span>
-                <span class="text-xl sm:text-2xl font-bold text-gray-600">JP MORGAN</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Career Stats (USP) -->
-    <section class="py-16 sm:py-20 bg-brand-navy/10 relative theme-transition">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- ... existing stats ... -->
+    <!-- Comparison Table Section (New) -->
+    <section class="py-16 sm:py-20 bg-brand-surface relative">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-12 sm:mb-16">
-                <h2 class="text-3xl lg:text-4xl font-bold mb-4">Numbers that speak for themselves</h2>
-                <p class="text-gray-400">Our career assistance program is designed to launch you into the top 1%.</p>
-            </div>
-            
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-8">
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-white mb-2">2150+</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Placements</p>
-                </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2 theme-transition">135%</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Avg. Hike</p>
-                </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-white mb-2">490%</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Highest Hike</p>
-                </div>
-                <div class="glass-panel p-4 sm:p-6 rounded-xl text-center border-t-4 border-t-brand-blue theme-transition">
-                    <h3 class="text-3xl sm:text-4xl font-bold text-brand-blue mb-2 theme-transition">650+</h3>
-                    <p class="text-gray-400 text-xs sm:text-sm uppercase tracking-wide">Hiring Partners</p>
-                </div>
+                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">The Unfair Advantage</span>
+                <h2 class="text-3xl font-bold mt-2">Why choose <span class="text-white">Tutort Academy?</span></h2>
             </div>
 
-            <!-- Career Assistance Points -->
-            <div class="mt-16">
-                <h3 class="text-2xl font-bold text-center mb-10 text-white">Comprehensive <span class="text-brand-blue theme-transition">Career Assistance</span></h3>
-                <div class="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-                    <!-- Point 1: Placement Support -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
-                            <i data-lucide="briefcase" class="text-brand-blue w-7 h-7 theme-transition"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Placement Support</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Our dedicated placement cell works tirelessly to connect you with top hiring partners. We provide exclusive job referrals, application tracking, and direct connections to HRs.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Point 2: Interview Prep -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
-                            <i data-lucide="users" class="text-brand-blue w-7 h-7 theme-transition"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Interview Prep</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Master technical rounds with unlimited mock interviews conducted by industry experts. Get real-time feedback on Data Structures, Algorithms, and System Design.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Point 3: Personal Branding -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
-                            <i data-lucide="fingerprint" class="text-brand-blue w-7 h-7 theme-transition"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Personal Branding</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Stand out from the crowd. We help you craft an ATS-friendly resume, build a strong GitHub portfolio, and optimize your LinkedIn profile.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Point 4: Soft Skills Training -->
-                    <div class="flex items-start gap-5 glass-panel p-6 sm:p-8 rounded-2xl border border-white/5 hover:border-brand-blue/50 transition-all duration-300 hover:-translate-y-1 group theme-transition">
-                        <div class="w-14 h-14 rounded-full bg-brand-blue/10 flex items-center justify-center shrink-0 group-hover:bg-brand-blue/20 transition-colors theme-transition">
-                            <i data-lucide="mic" class="text-brand-blue w-7 h-7 theme-transition"></i>
-                        </div>
-                        <div>
-                            <h4 class="text-xl font-bold text-white mb-2">Soft Skills Training</h4>
-                            <p class="text-sm text-gray-400 leading-relaxed">
-                                Technical skills get you the interview; soft skills get you the job. Participate in engaging workshops on effective communication and behavioral interview tactics.
-                            </p>
-                        </div>
-                    </div>
+            <div class="overflow-x-auto pb-4">
+                <div class="min-w-[800px] glass-panel rounded-2xl overflow-hidden border border-white/10">
+                    <table class="w-full text-sm text-left">
+                        <thead>
+                            <tr class="border-b border-gray-800">
+                                <th class="py-6 px-6 font-semibold text-gray-300 w-1/3">Features</th>
+                                <th class="py-6 px-6 font-semibold text-gray-400 text-center w-1/5">Recorded courses</th>
+                                <th class="py-6 px-6 font-semibold text-gray-400 text-center w-1/5">Other live courses</th>
+                                <th class="py-6 px-6 font-bold text-white text-center w-1/4 bg-brand-blue/10 border-t-4 border-brand-blue theme-transition relative">
+                                    <span class="text-lg text-brand-blue theme-transition">Tutort Academy</span>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-800">
+                            <!-- Row 1 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Immersive Orientation Experience</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 2 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">AI-First Curriculum</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 3 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Live & Structured Learning</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 4 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Personalised Mentorship</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center text-gray-500 text-xs">Offered by few</td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 5 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Placement Assistance</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center text-gray-500 text-xs">Offered by few</td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 6 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Hands-on Real-World Projects</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center text-gray-500 text-xs">Offered by few</td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 7 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Exclusive Sessions with CXOs</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 8 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Unlimited Mock Interviews</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                            <!-- Row 9 -->
+                            <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Soft-Skill Coaching</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                             <!-- Row 10 -->
+                             <tr class="hover:bg-white/5 transition-colors">
+                                <td class="py-4 px-6 text-white font-medium">Exclusive Slack Community</td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center"><div class="inline-flex p-1 rounded-full bg-red-500/10 text-red-500"><i data-lucide="x" class="w-4 h-4"></i></div></td>
+                                <td class="py-4 px-6 text-center bg-brand-blue/5 theme-transition"><div class="inline-flex p-1 rounded-full bg-green-500/10 text-green-500"><i data-lucide="check" class="w-5 h-5"></i></div></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Recent Placements -->
-    <section class="py-16 sm:py-20 bg-black overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 mb-8 sm:mb-10 flex flex-col sm:flex-row justify-between items-end gap-4">
-            <div class="w-full sm:w-auto">
-                <h2 class="text-2xl sm:text-3xl font-bold mb-2">Success Stories</h2>
-                <p class="text-gray-400 text-sm sm:text-base">Meet the graduates who transformed their careers.</p>
-            </div>
-            <div class="hidden sm:flex gap-2">
-                <button id="scrollLeft" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-left"></i></button>
-                <button id="scrollRight" class="p-2 rounded-full border border-gray-700 hover:bg-gray-800 transition"><i data-lucide="chevron-right"></i></button>
-            </div>
-        </div>
-
-        <div id="placement-scroll" class="flex gap-4 sm:gap-6 overflow-x-auto no-scrollbar px-4 lg:px-20 pb-10 snap-x">
-            <!-- Card 1 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
-                        <img src="https://i.pravatar.cc/150?img=11" alt="Student" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Ashish Joshi</h4>
-                        <p class="text-xs text-brand-blue theme-transition">Eng. Manager @ OpenGov</p>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
-                    <div class="text-center opacity-50">
-                        <span class="text-xs block">Previous</span>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
-                    <div class="text-center">
-                        <span class="font-bold text-white block">OpenGov</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 490% Hike</span>
-                </div>
-            </div>
-            
-            <!-- Card 2 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
-                        <img src="https://i.pravatar.cc/150?img=5" alt="Student" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Ritik Gupta</h4>
-                        <p class="text-xs text-brand-blue theme-transition">Data Engineer @ Coins91</p>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
-                    <div class="text-center opacity-50">
-                        <span class="text-xs block">NoBroker</span>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
-                    <div class="text-center">
-                        <span class="font-bold text-white block">Coins91</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 135% Hike</span>
-                </div>
-            </div>
-
-            <!-- Card 3 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
-                        <img src="https://i.pravatar.cc/150?img=3" alt="Student" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Gopal Yadav</h4>
-                        <p class="text-xs text-brand-blue theme-transition">Software Eng. 3 @ Cisco</p>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
-                    <div class="text-center opacity-50">
-                        <span class="text-xs block">Zest</span>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
-                    <div class="text-center">
-                        <span class="font-bold text-white block">Cisco</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 310% Hike</span>
-                </div>
-            </div>
-
-            <!-- Card 4 -->
-            <div class="min-w-[280px] sm:min-w-[300px] bg-[#0A0A0A] border border-gray-800 rounded-2xl p-6 snap-center hover:border-brand-blue transition-colors theme-transition">
-                <div class="flex items-center gap-4 mb-4">
-                    <div class="w-12 h-12 bg-gray-700 rounded-full overflow-hidden">
-                        <img src="https://i.pravatar.cc/150?img=32" alt="Student" class="w-full h-full object-cover">
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Avishkar Dalvi</h4>
-                        <p class="text-xs text-brand-blue theme-transition">MTS III @ John Deere</p>
-                    </div>
-                </div>
-                <div class="flex justify-between items-center mb-4 bg-gray-900/50 p-3 rounded-lg">
-                    <div class="text-center opacity-50">
-                        <span class="text-xs block">Vmware</span>
-                    </div>
-                    <i data-lucide="arrow-right" class="w-4 h-4 text-brand-blue theme-transition"></i>
-                    <div class="text-center">
-                        <span class="font-bold text-white block">John Deere</span>
-                    </div>
-                </div>
-                <div class="text-center">
-                    <span class="inline-block bg-green-500/20 text-green-400 text-xs font-bold px-3 py-1 rounded-full">+ 245% Hike</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mentors Section -->
-    <section id="instructors" class="py-16 sm:py-20 bg-brand-surface relative overflow-hidden">
-        <!-- Decoration -->
-        <div class="absolute top-0 right-0 w-64 h-64 bg-brand-blue/10 rounded-full blur-3xl theme-transition"></div>
-
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl lg:text-4xl font-bold mb-12 text-center">Meet the Minds Behind <span class="text-brand-blue theme-transition">The Program</span></h2>
-            
-            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Mentor 1 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
-                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0 theme-transition">
-                        <img src="https://i.pravatar.cc/150?img=59" alt="Mentor" class="w-full h-full rounded-full object-cover">
-                    </div>
-                    <div class="text-center sm:text-left">
-                        <h3 class="text-xl font-bold text-white">Abhishek Gupta</h3>
-                        <p class="text-brand-blue font-medium mb-2 theme-transition">Founder & CEO</p>
-                        <p class="text-gray-400 text-sm mb-4">Founded Tutort Academy to bridge the gap between learning and real-world opportunities. Mentored thousands to secure roles at leading tech companies.</p>
-                        <div class="flex justify-center sm:justify-start gap-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Mentor 2 -->
-                <div class="glass-panel p-6 rounded-2xl flex flex-col sm:flex-row items-center sm:items-start gap-6 hover:translate-y-[-5px] transition-transform duration-300">
-                    <div class="w-24 h-24 rounded-full border-2 border-brand-blue p-1 shrink-0 theme-transition">
-                        <img src="https://i.pravatar.cc/150?img=12" alt="Mentor" class="w-full h-full rounded-full object-cover">
-                    </div>
-                    <div class="text-center sm:text-left">
-                        <h3 class="text-xl font-bold text-white">Sunny Mongia</h3>
-                        <p class="text-brand-blue font-medium mb-2 theme-transition">Curriculum Advisor</p>
-                        <p class="text-gray-400 text-sm mb-4">14+ years of experience (Ex-JP Morgan). Deep expertise in DSA, System Design, and problem-solving. Aligns learning with real-world engineering.</p>
-                        <div class="flex justify-center sm:justify-start gap-3">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" class="w-6 h-6 grayscale hover:grayscale-0 transition cursor-pointer" alt="LinkedIn">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Course Benefits -->
-    <section class="py-16 sm:py-20 bg-black">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-12 text-center">Why choose this program?</h2>
-            
-            <div class="grid md:grid-cols-3 gap-6 auto-rows-auto sm:auto-rows-[200px]">
-                <!-- Large Card -->
-                <div class="md:col-span-2 row-span-2 glass-panel p-6 sm:p-8 rounded-2xl relative overflow-hidden group min-h-[250px]">
-                    <div class="absolute inset-0 bg-gradient-to-br from-brand-navy/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 theme-transition"></div>
-                    <div class="relative z-10 h-full flex flex-col justify-end">
-                        <div class="w-12 h-12 bg-brand-blue rounded-lg flex items-center justify-center mb-4 theme-transition">
-                            <i data-lucide="code" class="text-white"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-2">GenAI Specialization</h3>
-                        <p class="text-gray-400">Stay ahead of the curve. Master Prompt Engineering, LLMOps, LangChain, RAG, and deploy models using FastAPI & Docker.</p>
-                    </div>
-                </div>
-
-                <!-- Small Card -->
-                <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors theme-transition">
-                    <i data-lucide="award" class="text-brand-blue w-8 h-8 mb-4 theme-transition"></i>
-                    <h3 class="text-lg font-bold text-white mb-2">Flexible Learning</h3>
-                    <p class="text-gray-400 text-sm">Tailored for working professionals.</p>
-                </div>
-
-                 <!-- Small Card -->
-                 <div class="glass-panel p-6 rounded-2xl group hover:border-brand-blue/50 transition-colors theme-transition">
-                    <i data-lucide="users" class="text-brand-blue w-8 h-8 mb-4 theme-transition"></i>
-                    <h3 class="text-lg font-bold text-white mb-2">Daily Assessments</h3>
-                    <p class="text-gray-400 text-sm">Curated problems to keep you sharp.</p>
-                </div>
-
-                <!-- Medium Card -->
-                <div class="md:col-span-1 row-span-2 glass-panel p-6 rounded-2xl flex flex-col justify-end group hover:bg-brand-navy/20 transition-colors min-h-[250px] theme-transition">
-                    <i data-lucide="monitor-play" class="text-brand-blue w-10 h-10 mb-6 theme-transition"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">Live Classes</h3>
-                    <p class="text-gray-400">100% Live sessions from industry experts. Recordings available within 4 hours if you miss a class.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Curriculum Accordion -->
-    <section id="curriculum" class="py-16 sm:py-20 bg-brand-surface">
-        <div class="max-w-4xl mx-auto px-4">
-            <div class="text-center mb-10 sm:mb-12">
-                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">Comprehensive Roadmap</span>
-                <h2 class="text-2xl sm:text-3xl font-bold mt-2">Program Curriculum</h2>
-            </div>
-
-            <div class="space-y-4">
-                <!-- Module 0 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                        <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 0</span>
-                            <span class="font-bold text-base sm:text-lg text-white">Programming Fundamentals</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                        <div class="px-4 sm:px-6 pb-6 pt-2">
-                            <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">Introduction to Programming, Data Types & Operators</li>
-                                <li class="list-disc">Loops, Functions, Strings & 1D Array</li>
-                                <li class="list-disc">Number System & Maths</li>
-                                <li class="list-disc">Time & Space Complexity Basics</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Module 1 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 1</span>
-                            <span class="font-bold text-base sm:text-lg text-white">Data Structures & Algorithms</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                        <div class="px-4 sm:px-6 pb-6 pt-2">
-                             <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">Arrays, Linked Lists, Stacks, Queues, Deques</li>
-                                <li class="list-disc">Trees, BST, Heaps, Graphs, Tries</li>
-                                <li class="list-disc">Recursion, Backtracking, DP & Greedy Algorithms</li>
-                                <li class="list-disc">Searching, Sorting, Hashing & Two Pointers</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Module 2 -->
-                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                        <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 2</span>
-                            <span class="font-bold text-base sm:text-lg text-white">System Design (LLD & HLD)</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                        <div class="px-4 sm:px-6 pb-6 pt-2">
-                             <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">LLD: OOPs, Design Patterns, SOLID Principles, UML</li>
-                                <li class="list-disc">HLD: Scalability, Load Balancers, Caching, CAP Theorem</li>
-                                <li class="list-disc">Distributed Systems, Microservices, Kafka, SQL vs NoSQL</li>
-                                <li class="list-disc">Case Studies: Uber, Instagram, BookMyShow</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                 <!-- Module 3 -->
-                 <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                        <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 3</span>
-                            <span class="font-bold text-base sm:text-lg text-white">Full Stack / Backend Specialization</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                         <div class="px-4 sm:px-6 pb-6 pt-2">
-                             <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">Option A (MERN): React, Node, Express, MongoDB</li>
-                                <li class="list-disc">Option B (Java): Java, Spring Boot, Hibernate, Microservices</li>
-                                <li class="list-disc">MVC, API Design, Authentication (JWT), Unit Testing</li>
-                                <li class="list-disc">Capstone Projects included</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Module 4 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                         <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 4</span>
-                            <span class="font-bold text-base sm:text-lg text-white">Computer Fundamentals</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                         <div class="px-4 sm:px-6 pb-6 pt-2">
-                             <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">Operating Systems (OS)</li>
-                                <li class="list-disc">Database Management Systems (DBMS)</li>
-                                <li class="list-disc">Computer Networks (CN)</li>
-                                <li class="list-disc">Concurrency & Threading</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Module 5 -->
-                <div class="group border border-gray-800 rounded-xl bg-[#0A0A0A] overflow-hidden transition-all hover:border-brand-blue/50 theme-transition">
-                    <button class="w-full px-4 sm:px-6 py-5 flex items-center justify-between text-left focus:outline-none module-toggle">
-                        <div class="flex items-center gap-3 sm:gap-4">
-                            <span class="bg-gray-800 text-gray-400 px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-mono group-hover:bg-brand-blue group-hover:text-white transition-colors theme-transition">Mod 5</span>
-                            <span class="font-bold text-base sm:text-lg text-white">Generative AI Essentials</span>
-                        </div>
-                        <i data-lucide="chevron-down" class="text-gray-500 transform transition-transform duration-300"></i>
-                    </button>
-                    <div class="max-h-0 overflow-hidden transition-all duration-500 ease-in-out bg-gray-900/30 module-content">
-                         <div class="px-4 sm:px-6 pb-6 pt-2">
-                             <ul class="space-y-2 text-gray-400 ml-10 sm:ml-14 text-sm sm:text-base">
-                                <li class="list-disc">Prompt Engineering & LLMOps</li>
-                                <li class="list-disc">LangChain & Vector Databases</li>
-                                <li class="list-disc">RAG (Retrieval Augmented Generation)</li>
-                                <li class="list-disc">Model Deployment (FastAPI + Docker)</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Showcase -->
-    <section class="py-16 sm:py-20 bg-black">
-        <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl font-bold mb-10 text-center">Real-world Projects</h2>
-            
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="glass-panel rounded-xl overflow-hidden group">
-                    <div class="h-48 bg-gray-800 relative">
-                        <!-- Placeholder visual -->
-                        <div class="absolute inset-0 flex items-center justify-center text-gray-600">
-                            <i data-lucide="car" class="w-12 h-12"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
-                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Uber-like Taxi System</h3>
-                        <p class="text-gray-400 text-sm mb-4">Design a scalable system handling millions of users. Focus on real-time location tracking and driver matching.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">HLD</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Kafka</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Geo-hashing</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 2 -->
-                <div class="glass-panel rounded-xl overflow-hidden group">
-                    <div class="h-48 bg-gray-800 relative">
-                         <!-- Placeholder visual -->
-                         <div class="absolute inset-0 flex items-center justify-center text-gray-600">
-                            <i data-lucide="split" class="w-12 h-12"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
-                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Splitwise (Expense Sharing)</h3>
-                        <p class="text-gray-400 text-sm mb-4">Architect a scalable expense splitting app. Focus on clean code, Design Patterns, and SOLID principles.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">LLD</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Design Patterns</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">OOPs</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Project 3 -->
-                <div class="glass-panel rounded-xl overflow-hidden group">
-                    <div class="h-48 bg-gray-800 relative">
-                         <!-- Placeholder visual -->
-                         <div class="absolute inset-0 flex items-center justify-center text-gray-600">
-                            <i data-lucide="video" class="w-12 h-12"></i>
-                        </div>
-                        <div class="absolute inset-0 bg-brand-blue/80 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center theme-transition">
-                            <span class="text-white font-bold border border-white px-4 py-2 rounded">View Case Study</span>
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-white mb-2">Netflix Clone</h3>
-                        <p class="text-gray-400 text-sm mb-4">Build an end-to-end video streaming platform with transcoding and adaptive bitrate streaming.</p>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">React</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">Node.js</span>
-                            <span class="text-xs bg-gray-800 text-gray-300 px-2 py-1 rounded">AWS</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Certificate Section -->
-    <section class="py-16 sm:py-20 bg-gradient-to-b from-brand-surface to-black border-y border-white/5">
-        <div class="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12 items-center">
-            <div class="order-2 lg:order-1">
-                <h2 class="text-3xl font-bold mb-6 text-center lg:text-left">Certified Excellence</h2>
-                <ul class="space-y-6">
-                    <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="check" class="w-5 h-5"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg">Industry Recognized</h4>
-                            <p class="text-gray-400 text-sm">Valid across 650+ hiring partners globally.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="share-2" class="w-5 h-5"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg">Sharable on LinkedIn</h4>
-                            <p class="text-gray-400 text-sm">Digital credential ID for instant verification.</p>
-                        </div>
-                    </li>
-                    <li class="flex items-start gap-4">
-                        <div class="bg-brand-blue/20 p-2 rounded-lg text-brand-blue theme-transition"><i data-lucide="award" class="w-5 h-5"></i></div>
-                        <div>
-                            <h4 class="font-bold text-lg">Boost Career Opportunities</h4>
-                            <p class="text-gray-400 text-sm">Enhance your profile skills and boost career opportunities with our certificate.</p>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="relative order-1 lg:order-2">
-                <div class="absolute inset-0 bg-brand-blue blur-3xl opacity-20 theme-transition"></div>
-                <div class="relative glass-panel-high border-2 border-brand-blue/30 p-4 sm:p-8 rounded-xl aspect-[4/3] flex flex-col justify-between theme-transition">
-                    <div class="flex justify-between items-start">
-                        <div class="flex items-center gap-2">
-                            <div class="w-6 h-6 sm:w-8 sm:h-8 bg-brand-blue rounded theme-transition"></div>
-                            <span class="font-bold text-lg sm:text-xl tracking-tight">Tutort<span class="text-brand-blue theme-transition">Academy</span></span>
-                        </div>
-                        <div class="text-right text-[10px] sm:text-xs text-gray-400">
-                            CERT ID: TA-2023-884
-                        </div>
-                    </div>
-                    <div class="text-center">
-                        <p class="text-xs sm:text-sm text-gray-400 uppercase tracking-widest mb-2">This certifies that</p>
-                        <h3 class="text-2xl sm:text-3xl font-serif italic text-white mb-4">Your Name Here</h3>
-                        <p class="text-xs sm:text-sm text-gray-300">Has successfully completed the</p>
-                        <h4 class="text-lg sm:text-xl font-bold text-brand-blue theme-transition">Software Development Program</h4>
-                    </div>
-                    <div class="flex justify-between items-end">
-                        <div class="text-[10px] sm:text-xs text-gray-500">
-                            Date: Nov 24, 2023
-                        </div>
-                        <div class="w-16 sm:w-20 h-8 sm:h-10 border-b border-gray-600"></div> <!-- Signature line -->
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Application Process Section -->
-    <section class="py-16 sm:py-20 bg-brand-surface relative overflow-hidden">
-        <div class="max-w-7xl mx-auto px-4 relative z-10">
-            <div class="text-center mb-12 sm:mb-16">
-                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">Join the Batch</span>
-                <h2 class="text-3xl font-bold mt-2">Simple Application Process</h2>
-            </div>
-            
-            <!-- Updated Container: Flex for Mobile Horizontal Scroll, Grid for Desktop with items-start to prevent stretching -->
-            <div class="flex overflow-x-auto snap-x pb-8 md:pb-0 md:grid md:grid-cols-4 gap-6 items-start no-scrollbar">
-                <!-- Step 1 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
-                    <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
-                        <span class="font-bold text-white">01</span>
-                    </div>
-                    <div class="mb-4 text-brand-blue theme-transition">
-                        <i data-lucide="file-edit" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Apply for Program</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
-                    <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                        Fill in your required details in the form above to register for the program. Our application process is designed to be straightforward, taking less than 2 minutes to complete your initial profile setup.
-                    </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
-                </div>
-
-                <!-- Step 2 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
-                        <span class="font-bold text-white">02</span>
-                    </div>
-                    <div class="mb-4 text-brand-blue theme-transition">
-                        <i data-lucide="user-check" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Qualification Check</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
-                    <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                        We will review your profile to check your eligibility for the course. We ensure that all candidates meet the necessary prerequisites to maintain a high-quality peer learning environment for the batch.
-                    </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
-                </div>
-
-                <!-- Step 3 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
-                        <span class="font-bold text-white">03</span>
-                    </div>
-                    <div class="mb-4 text-brand-blue theme-transition">
-                        <i data-lucide="video" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Session from Mentor</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
-                    <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                        A dedicated mentor will guide you through the course structure and how it works. This 1:1 session helps you understand the curriculum depth and clarify any doubts regarding career outcomes.
-                    </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
-                </div>
-
-                <!-- Step 4 -->
-                <div class="glass-panel p-6 sm:p-8 rounded-2xl relative group hover:border-brand-blue transition-all duration-300 hover:-translate-y-2 min-w-[85vw] sm:min-w-[350px] md:min-w-0 snap-center theme-transition">
-                     <div class="absolute -top-4 -right-4 w-12 h-12 bg-brand-navy rounded-full flex items-center justify-center border border-brand-blue/30 group-hover:bg-brand-blue group-hover:scale-110 transition-all duration-300 z-10 theme-transition">
-                        <span class="font-bold text-white">04</span>
-                    </div>
-                    <div class="mb-4 text-brand-blue theme-transition">
-                        <i data-lucide="rocket" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="text-xl font-bold text-white mb-2">Enrollment Process</h3>
-                    <div class="h-1 w-12 bg-gray-700 group-hover:bg-brand-blue transition-colors duration-300 mb-4 theme-transition"></div>
-                    <p class="text-gray-400 text-sm leading-relaxed opacity-60 max-h-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
-                        Sign up for the course with flexible payment options including EMI. Once enrolled, you get immediate access to the LMS and can begin your pre-course preparatory modules right away.
-                    </p>
-                    <div class="text-xs text-brand-blue mt-2 font-semibold group-hover:hidden uppercase tracking-wide theme-transition">Hover for details</div>
-                </div>
-            </div>
-            
-            <!-- Connection Line (Desktop Only) -->
-            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-brand-navy to-transparent -z-10 translate-y-4 theme-transition"></div>
         </div>
     </section>
 
@@ -1252,14 +722,44 @@
             const menu = document.getElementById('mobile-menu');
             const icon = document.querySelector('#mobile-menu-btn i');
             
-            menu.classList.toggle('open');
-            
-            // Re-render icon based on state (optional visual polish)
-            // lucide icons are static svg after render, so simpler to just toggle class
+            if (menu.classList.contains('open')) {
+                menu.classList.remove('open');
+                menu.style.maxHeight = '0';
+                menu.style.opacity = '0';
+            } else {
+                menu.classList.add('open');
+                menu.style.maxHeight = '500px'; // Increased height to accommodate dropdown
+                menu.style.opacity = '1';
+            }
         }
         
         // Add event listener to hamburger button
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // Mobile Courses Toggle
+        const mobileCoursesBtn = document.getElementById('mobile-courses-btn');
+        const mobileCoursesList = document.getElementById('mobile-courses-list');
+        
+        if(mobileCoursesBtn) {
+            mobileCoursesBtn.addEventListener('click', () => {
+                mobileCoursesList.classList.toggle('hidden');
+                mobileCoursesList.classList.toggle('flex');
+                
+                // Toggle Icon Rotation
+                const icon = mobileCoursesBtn.querySelector('svg'); // Lucide renders as svg
+                if(icon) {
+                    if (mobileCoursesList.classList.contains('hidden')) {
+                        icon.style.transform = 'rotate(0deg)';
+                        // Adjust menu height back
+                        document.getElementById('mobile-menu').style.maxHeight = '500px';
+                    } else {
+                        icon.style.transform = 'rotate(180deg)';
+                        // Expand menu height to fit content
+                        document.getElementById('mobile-menu').style.maxHeight = '800px';
+                    }
+                }
+            });
+        }
 
 
         // Horizontal Scroll for Placements
@@ -1274,6 +774,21 @@
 
             leftBtn.addEventListener('click', () => {
                 scrollContainer.scrollBy({ left: -320, behavior: 'smooth' });
+            });
+        }
+
+        // Horizontal Scroll for Projects
+        const projScrollContainer = document.getElementById('projects-scroll');
+        const projLeftBtn = document.getElementById('projScrollLeft');
+        const projRightBtn = document.getElementById('projScrollRight');
+
+        if (projLeftBtn && projRightBtn && projScrollContainer) {
+            projRightBtn.addEventListener('click', () => {
+                projScrollContainer.scrollBy({ left: 350, behavior: 'smooth' });
+            });
+
+            projLeftBtn.addEventListener('click', () => {
+                projScrollContainer.scrollBy({ left: -350, behavior: 'smooth' });
             });
         }
 
