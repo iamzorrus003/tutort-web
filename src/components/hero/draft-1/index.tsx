@@ -8,12 +8,11 @@ import {
   TrendingUp, 
   Briefcase, 
   Award, 
-  Linkedin, 
-  Moon, 
-  Sun,
+  Linkedin,
   Globe,
   Menu,
-  X
+  X,
+  Palette
 } from 'lucide-react';
 
 // --- Configuration & Data ---
@@ -166,10 +165,10 @@ const Navbar = ({ theme, currentTheme, toggleTheme }: {theme: unknown, currentTh
           <div className="flex items-center space-x-4">
             <button 
               onClick={toggleTheme}
-              className="p-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-white"
+              className="p-2 rounded-full border border-white/10 hover:bg-white/5 transition-all text-white cursor-pointer"
               title="Switch Theme"
             >
-              {currentTheme === 'blue' ? <Sun size={20} className="text-yellow-400" /> : <Moon size={20} className="text-orange-400" />}
+              <Palette size={20} className={currentTheme === 'blue' ? 'text-blue-500' : 'text-orange-500'} />
             </button>
             <button 
               className="hidden md:block px-6 py-2.5 rounded-full font-bold text-white transition-all transform hover:scale-105"

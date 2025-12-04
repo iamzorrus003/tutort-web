@@ -783,6 +783,91 @@
         </div>
     </section>
 
+    <section class="py-16 sm:py-24 bg-brand-surface relative overflow-hidden border-t border-white/5">
+        <div class="max-w-7xl mx-auto px-4 relative z-10">
+            <div class="text-center mb-16">
+                <span class="text-brand-blue font-semibold uppercase tracking-wider text-sm theme-transition">Structured Learning</span>
+                <h2 class="text-3xl font-bold mt-2">Course Overview <span class="text-white">At A Glance</span></h2>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+                
+                <!-- Left Column: Interactive List -->
+                <div class="space-y-2" id="overview-list">
+                    <!-- Item 1 -->
+                    <div class="overview-item cursor-pointer border-l-[3px] border-gray-800 pl-6 py-4 transition-all duration-300 hover:bg-white/5 rounded-r-xl group" onclick="setOverviewActive(0)">
+                        <h3 class="text-xl font-bold text-gray-500 group-hover:text-gray-300 transition-colors duration-300 flex items-center gap-3">
+                            <span class="text-sm font-mono opacity-50">01</span> Live Interactive Classes
+                        </h3>
+                        <div class="overview-desc max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <p class="text-gray-400 text-sm leading-relaxed pt-3">
+                                Participate in 100% live sessions led by industry veterans. Ask doubts in real-time, engage in live coding battles, and access HD recordings instantly if you miss a session.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="overview-item cursor-pointer border-l-[3px] border-gray-800 pl-6 py-4 transition-all duration-300 hover:bg-white/5 rounded-r-xl group" onclick="setOverviewActive(1)">
+                        <h3 class="text-xl font-bold text-gray-500 group-hover:text-gray-300 transition-colors duration-300 flex items-center gap-3">
+                            <span class="text-sm font-mono opacity-50">02</span> 1:1 Domain Mentorship
+                        </h3>
+                        <div class="overview-desc max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <p class="text-gray-400 text-sm leading-relaxed pt-3">
+                                Get paired with a dedicated mentor from your dream company (Google, Microsoft, etc.). Receive personalized roadmap reviews, code reviews, and weekly catch-ups to track progress.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="overview-item cursor-pointer border-l-[3px] border-gray-800 pl-6 py-4 transition-all duration-300 hover:bg-white/5 rounded-r-xl group" onclick="setOverviewActive(2)">
+                        <h3 class="text-xl font-bold text-gray-500 group-hover:text-gray-300 transition-colors duration-300 flex items-center gap-3">
+                            <span class="text-sm font-mono opacity-50">03</span> Production-Grade Projects
+                        </h3>
+                        <div class="overview-desc max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <p class="text-gray-400 text-sm leading-relaxed pt-3">
+                                Stop building to-do apps. Build scalable, real-world systems like a Netflix Clone (Video Streaming), Uber (System Design), or a custom RAG-based LLM application.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="overview-item cursor-pointer border-l-[3px] border-gray-800 pl-6 py-4 transition-all duration-300 hover:bg-white/5 rounded-r-xl group" onclick="setOverviewActive(3)">
+                        <h3 class="text-xl font-bold text-gray-500 group-hover:text-gray-300 transition-colors duration-300 flex items-center gap-3">
+                            <span class="text-sm font-mono opacity-50">04</span> Career Transformation
+                        </h3>
+                        <div class="overview-desc max-h-0 overflow-hidden transition-all duration-500 ease-in-out">
+                            <p class="text-gray-400 text-sm leading-relaxed pt-3">
+                                Our placement team works with you until you're hired. Benefits include ATS Resume building, LinkedIn optimization, unlimited mock interviews, and exclusive referrals.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Image Display -->
+                <div class="relative h-[400px] lg:h-[500px] w-full rounded-2xl overflow-hidden glass-panel border border-white/10 shadow-2xl">
+                    <!-- Image 1 -->
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&q=80&w=800" 
+                         class="overview-img absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-100 scale-100" alt="Live Classes">
+                    
+                    <!-- Image 2 -->
+                    <img src="https://images.unsplash.com/photo-1515168816178-54e110012f45?auto=format&fit=crop&q=80&w=800" 
+                         class="overview-img absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 scale-105" alt="Mentorship">
+                    
+                    <!-- Image 3 -->
+                    <img src="https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&q=80&w=800" 
+                         class="overview-img absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 scale-105" alt="Projects">
+
+                    <!-- Image 4 -->
+                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&q=80&w=800" 
+                         class="overview-img absolute inset-0 w-full h-full object-cover transition-all duration-700 opacity-0 scale-105" alt="Career">
+
+                    <!-- Overlay Gradient -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Curriculum Accordion -->
     <section id="curriculum" class="py-16 sm:py-20 bg-brand-surface">
         <div class="max-w-4xl mx-auto px-4">
@@ -1488,6 +1573,75 @@
                 }
             });
         });
+
+        // --- NEW LOGIC: Course Overview Component ---
+        let overviewInterval;
+        let currentOverviewIndex = 0;
+        const overviewItems = document.querySelectorAll('.overview-item');
+        const overviewImages = document.querySelectorAll('.overview-img');
+
+        function setOverviewActive(index) {
+            // Update List Items
+            overviewItems.forEach((item, i) => {
+                const title = item.querySelector('h3');
+                const desc = item.querySelector('.overview-desc');
+                
+                if (i === index) {
+                    // Active State
+                    item.classList.remove('border-gray-800');
+                    item.classList.add('border-brand-blue');
+                    item.classList.add('bg-white/5');
+                    
+                    title.classList.remove('text-gray-500');
+                    title.classList.add('text-white');
+                    
+                    desc.style.maxHeight = desc.scrollHeight + "px";
+                } else {
+                    // Inactive State
+                    item.classList.add('border-gray-800');
+                    item.classList.remove('border-brand-blue');
+                    item.classList.remove('bg-white/5');
+                    
+                    title.classList.add('text-gray-500');
+                    title.classList.remove('text-white');
+                    
+                    desc.style.maxHeight = null;
+                }
+            });
+
+            // Update Images
+            overviewImages.forEach((img, i) => {
+                if (i === index) {
+                    img.classList.remove('opacity-0', 'scale-105');
+                    img.classList.add('opacity-100', 'scale-100');
+                } else {
+                    img.classList.add('opacity-0', 'scale-105');
+                    img.classList.remove('opacity-100', 'scale-100');
+                }
+            });
+            
+            currentOverviewIndex = index;
+        }
+
+        function startOverviewAutoCycle() {
+            overviewInterval = setInterval(() => {
+                const nextIndex = (currentOverviewIndex + 1) % overviewItems.length;
+                setOverviewActive(nextIndex);
+            }, 4000); // Change every 4 seconds
+        }
+
+        // Initialize
+        setOverviewActive(2);
+        startOverviewAutoCycle();
+
+        // Add manual click override
+        window.setOverviewActive = function(index) {
+            clearInterval(overviewInterval); // Stop auto-cycle on manual interaction
+            setOverviewActive(index);
+            startOverviewAutoCycle(); // Restart timer
+        };
+        // ------------------------------------------
+
     </script>
 </body>
 </html>
